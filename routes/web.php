@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\KompetensiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +36,6 @@ Route::middleware([
     Route::resource('matkul', MatkulController::class);
     Route::resource('kurikulum', KurikulumController::class);
     Route::resource('mahasiswa', MahasiswaController::class);
+    Route::resource('kompetensi', KompetensiController::class);
+    Route::resource('nilai', NilaiController::class);
 });

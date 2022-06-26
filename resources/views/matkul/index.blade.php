@@ -7,11 +7,9 @@
 
     <section class="pt-8 pb-8 bg-gray-200">
         <div class="container relative">
-            @can('manage-user')
             <button class="bg-green-500 hover:bg-white text-white font-bold hover:text-green-500 py-1 px-3 border border-transparent hover:border-green-500 rounded mb-5" >
                 <a href="{{ route('matkul.create') }}">Tambah Mata Kuliah</a>
             </button>
-            @endcan
             <div class="flex flex-wrap">
                 <div class="w-full self-center px-4 lg:w-1/2">
                     <h1 class="text-2xl font-bold mb-2 mr-3">List Mata Kuliah</h1>

@@ -15,10 +15,6 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        if (Gate::denies('manage-user')) {
-            abort(403);
-        }
-
         if(request('search')){
             $mahasiswa = Mahasiswa::where('nim', 'like', '%'. request('search') . '%')
                 ->orWhere('nama', 'like', '%'. request('search') . '%')
