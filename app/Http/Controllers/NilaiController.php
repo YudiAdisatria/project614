@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nilai;
+use App\Models\Matkul;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NilaiController extends Controller
 {
@@ -13,7 +17,28 @@ class NilaiController extends Controller
      */
     public function index()
     {
-        //
+        if(request('search')){
+            $mahasiswa = Mahasiswa::where('nim', 'like', '%'. request('search') . '%')
+                ->orWhere('nama', 'like', '%'. request('search') . '%')
+                ->paginate(15);
+            
+            return view('nilai.index', [
+                'mahasiswa' => $mahasiswa
+            ]);
+        }
+
+        $mahasiswa = Mahasiswa::paginate(15);
+        $nilai = DB::table('mahasiswas')
+                ->join('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
+                ->join('matkuls', 'nilais.kode_matkul', '=', 'matkuls.kode_matkul')
+                ->select('mahasiswas.*', 'nilais.nilai', 'matkuls.kode_matkul')
+                ->groupBy('mahasiswas.nim')
+                ->get();
+
+        return view('nilai.index', [
+            'mahasiswa' => $mahasiswa,
+            'nilai' => $nilai
+        ]);
     }
 
     /**
@@ -23,7 +48,13 @@ class NilaiController extends Controller
      */
     public function create()
     {
-        //
+        $mahasiswa = Mahasiswa::get();
+        $matkul = Matkul::get();
+
+        return view('nilai.create',[
+            'mahasiswa' => $mahasiswa,
+            'matkul' => $matkul
+        ]);
     }
 
     /**
@@ -34,7 +65,13 @@ class NilaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        foreach ($data as $value) {
+            Nilai::create($value);
+        }
+
+        return redirect()->route('matkul.index');
     }
 
     /**
@@ -54,9 +91,16 @@ class NilaiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Nilai $nilai)
     {
-        //
+        $mahasiswa = Mahasiswa::get();
+        $matkul = Matkul::get();
+
+        return view('nilai.edit',[
+            'nilai' => $nilai,
+            'mahasiswa' => $mahasiswa,
+            'matkul' => $matkul
+        ]);
     }
 
     /**
@@ -66,9 +110,13 @@ class NilaiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Nilai $nilai)
     {
-        //
+        $data = $request->all();
+        
+        $nilai->update($data);
+
+        return redirect()->route('nilai.index');
     }
 
     /**
@@ -77,8 +125,10 @@ class NilaiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Nilai $nilai)
     {
-        //
+        $nilai->delete();
+
+        return redirect()->route('nilai.index');
     }
 }
