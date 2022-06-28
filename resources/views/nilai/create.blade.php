@@ -38,7 +38,6 @@
                                 id="grid-last-name" type="text" placeholder="NIM">
                         
                         </div>
-                        
 
                         <div class="w-full px-3 mt-2 self-end lg:w-1/2">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
@@ -48,53 +47,52 @@
                         </div>       
                     </div>
 
+                    @forelse ($matkul as $item)
                     <div class="flex flex-wrap">
-                        
-                        <div class="w-full self-center mt-2 px-3 lg:w-1/4">
+                        <div class="w-full self-center mt-2 px-3 lg:w-1/3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                                Tempat Lahir
+                                Kode Mata Kuliah
                             </label>
-                            <input value="{{ old('tempat') }}" name="tempat" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                 id="grid-last-name" type="text" placeholder="Tempat Lahir">
+                            <input value="{{ old('kode_matkul') ?? $item->kode_matkul  }}" name="kode_matkul" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                 id="grid-last-name" type="text" disabled>
+                            <input value="{{ old('kode_matkul') ?? $item->kode_matkul  }}" name="kode_matkul" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                 id="grid-last-name" type="hidden">
                         </div>
                         
-                        <div class="w-full self-center mt-2 px-3 lg:w-1/4">
+                        <div class="w-full self-center mt-2 px-3 lg:w-1/3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                                Tanggal Lahir
+                                Mata Kuliah
                             </label>
-                            <input value="{{ old('tanggal') }}" name="tanggal" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                 id="grid-last-name" type="date" placeholder="Tanggal Lahir">
+                            <input value="{{ old('nama_matkul') ?? $item->nama_matkul  }}" name="nama_matkul" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                 id="grid-last-name" type="text" disabled>
+                            <input value="{{ old('nama_matkul') ?? $item->nama_matkul  }}" name="nama_matkul" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                 id="grid-last-name" type="hidden">
                         </div>
     
-                        <div class="w-full  self-center mt-2 px-3 lg:w-2/4">
+                        <div class="w-full  self-center mt-2 px-3 lg:w-1/3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                                NIRL
+                                Nilai
                             </label>
-                            <input value="{{ old('nirl') }}" name="nirl" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                 id="grid-last-name" type="text" placeholder="NIRL">
+                            <select name="nilai" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name">
+                                <option value="A">A</option>
+                                <option value="AB">AB</option>
+                                <option value="B">B</option>
+                                <option value="BC">BC</option>
+                                <option value="C">C</option>
+                                <option value="CD">CD</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                            </select>
                         </div>   
                     </div>
-
-                    <div  class="flex flex-wrap">
-                        <div class="w-full  self-center mt-2 px-3 lg:w-1/2">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                                Tahun Masuk
-                            </label>
-                            <input value="{{ old('tahun_masuk') }}" name="tahun_masuk" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Tahun Masuk">
-                        </div>
-
-                        <div class="w-full  self-center mt-2 px-3 lg:w-1/2">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                                Tanggal Lulus
-                            </label>
-                            <input value="{{ old('tanggal_lulus') }}" name="tanggal_lulus" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Tanggal Lulus">
-                        </div>
-                    </div>
+                    @empty
+                        
+                    @endforelse
 
                     <div class="flex flex-wrap mt-10 ">
                         <div class="w-full px-3 text-right">
                             <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                Save Mahasiswa
+                                Save Nilai
                             </button>
                         </div>
                     </div>

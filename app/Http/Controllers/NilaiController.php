@@ -18,25 +18,28 @@ class NilaiController extends Controller
     public function index()
     {
         if(request('search')){
-            $mahasiswa = Mahasiswa::where('nim', 'like', '%'. request('search') . '%')
-                ->orWhere('nama', 'like', '%'. request('search') . '%')
+            $nilai = DB::table('mahasiswas')
+                ->rightJoin('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
+                ->join('matkuls', 'nilais.kode_matkul', '=', 'matkuls.kode_matkul')
+                ->select('mahasiswas.id','mahasiswas.nama','mahasiswas.nim', DB::raw('sum(nilais.nilai*matkuls.sks)/sum(matkuls.sks) AS ipk'))
+                ->groupBy('mahasiswas.id','mahasiswas.nama','mahasiswas.nim')
+                ->where('mahasiswas.nim', 'like', '%'. request('search') . '%')
+                ->orWhere('mahasiswas.nama', 'like', '%'. request('search') . '%')
                 ->paginate(15);
             
             return view('nilai.index', [
-                'mahasiswa' => $mahasiswa
+                'nilai' => $nilai
             ]);
         }
 
-        $mahasiswa = Mahasiswa::paginate(15);
         $nilai = DB::table('mahasiswas')
-                ->join('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
+                ->rightJoin('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
                 ->join('matkuls', 'nilais.kode_matkul', '=', 'matkuls.kode_matkul')
-                ->select('mahasiswas.*', 'nilais.nilai', 'matkuls.kode_matkul')
-                ->groupBy('mahasiswas.nim')
-                ->get();
-
+                ->select('mahasiswas.id','mahasiswas.nama','mahasiswas.nim', DB::raw('sum(nilais.nilai*matkuls.sks)/sum(matkuls.sks) AS ipk'))
+                ->groupBy('mahasiswas.id','mahasiswas.nama','mahasiswas.nim')
+                ->paginate(15);
+        
         return view('nilai.index', [
-            'mahasiswa' => $mahasiswa,
             'nilai' => $nilai
         ]);
     }

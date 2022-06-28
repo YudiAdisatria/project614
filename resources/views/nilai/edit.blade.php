@@ -48,54 +48,33 @@
                     </div>
 
                     <div class="flex flex-wrap mt-2">      
-                        <div class="w-full  self-center mt-2 px-3 lg:w-1/4">
+                        <div class="w-full  self-center mt-2 px-3 lg:w-1/3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                                Tempat lahir
+                                Kode Mata Kuliah
                             </label>
                             <input value="{{ old('tempat') ?? explode(',', $mahasiswa->ttl)[0] }}" name="tempat" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                  id="grid-last-name" type="text" placeholder="Tempat lahir">
                         
                         </div>
 
-                        <div class="w-full  self-center mt-2 px-3 lg:w-1/4">
+                        <div class="w-full  self-center mt-2 px-3 lg:w-1/3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                                Tanggal lahir
+                                Mata Kuliah
                             </label>
                             <input value="{{ old('tanggal') ?? substr($mahasiswa->ttl, -10, 10) }}" name="tanggal" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                  id="grid-last-name" type="date" placeholder="Tanggal lahir">
                         
                         </div>
                                     
-                        <div class="w-full  self-center mt-2 px-3 lg:w-1/2">
+                        <div class="w-full  self-center mt-2 px-3 lg:w-1/3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                                NIRL
+                                Nilai
                             </label>
                             <input value="{{ old('nirl') ?? $mahasiswa->nirl }}" name="nirl" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                  id="grid-last-name" type="text" placeholder="NIRL">
                         
                         </div>
                     </div>
-
-                    <div class="flex flex-wrap mt-2">      
-                        <div class="w-full  self-center mt-2 px-3 lg:w-1/2">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                                Tahun Masuk
-                            </label>
-                            <input value="{{ old('tahun_masuk') ?? $mahasiswa->tahun_masuk }}" name="tahun_masuk" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                 id="grid-last-name" type="text" placeholder="Tahun Masuk">
-                        
-                        </div>
-                                    
-                        <div class="w-full  self-center mt-2 px-3 lg:w-1/2">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                                Tanggal Lulus
-                            </label>
-                            <input value="{{ old('tanggal_lulus') ?? $mahasiswa->tanggal_lulus }}" name="tanggal_lulus" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                 id="grid-last-name" type="text" placeholder="Tanggal Lulus">
-                        
-                        </div>
-                    </div>
-
 
                     <div class="flex flex-wrap mt-10">
                         <div class="w-full px-3 text-right">
