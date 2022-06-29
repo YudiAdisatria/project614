@@ -34,8 +34,10 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 NIM
                             </label>
-                            <input value="{{ old('nim') }}" name="nim" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="text" placeholder="NIM">
+                            <input value="{{ old('nim') ?? $mahasiswa->nim }}" name="nim" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" placeholder="NIM" disabled>
+                            <input value="{{ old('nim') ?? $mahasiswa->nim }}" name="nim" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="hidden" placeholder="NIM">
                         
                         </div>
 
@@ -43,7 +45,8 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Nama
                             </label>
-                            <input value="{{ old('nama') }}" name="nama" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Nama User">
+                            <input value="{{ old('nama') ?? $mahasiswa->nama }}" name="nama" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Nama User" disabled>
+                            <input value="{{ old('nama') ?? $mahasiswa->nama }}" name="nama" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="hidden" placeholder="Nama User">
                         </div>       
                     </div>
 
@@ -53,9 +56,9 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Kode Mata Kuliah
                             </label>
-                            <input value="{{ old('kode_matkul') ?? $item->kode_matkul  }}" name="kode_matkul" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            <input value="{{ old('kode_matkul') ?? $item->kode_matkul  }}" name="kode_matkul[]" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                  id="grid-last-name" type="text" disabled>
-                            <input value="{{ old('kode_matkul') ?? $item->kode_matkul  }}" name="kode_matkul" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            <input value="{{ old('kode_matkul') ?? $item->kode_matkul  }}" name="kode_matkul[]" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                  id="grid-last-name" type="hidden">
                         </div>
                         
@@ -63,9 +66,9 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Mata Kuliah
                             </label>
-                            <input value="{{ old('nama_matkul') ?? $item->nama_matkul  }}" name="nama_matkul" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            <input value="{{ old('nama_matkul') ?? $item->nama_matkul  }}" name="nama_matkul[]" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                  id="grid-last-name" type="text" disabled>
-                            <input value="{{ old('nama_matkul') ?? $item->nama_matkul  }}" name="nama_matkul" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            <input value="{{ old('nama_matkul') ?? $item->nama_matkul  }}" name="nama_matkul[]" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                  id="grid-last-name" type="hidden">
                         </div>
     
@@ -73,7 +76,15 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Nilai
                             </label>
-                            <select name="nilai" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name">
+                            <select name="nilai[]" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name">
+                                @forelse ($nilai as $nil)
+                                    @if ($nil->kode_matkul ==  $item->kode_matkul)
+                                        <option value="{{ $nil->nilai }}">{{ $nil->nilai }}</option>
+                                    @endif
+                                @empty
+                                
+                                @endforelse
+                                <option value="">Pilih Nilai</option>
                                 <option value="A">A</option>
                                 <option value="AB">AB</option>
                                 <option value="B">B</option>

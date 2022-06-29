@@ -54,6 +54,10 @@
                                     <a href="{{ route('mahasiswa.edit', $item->id) }}">Edit</a>
                                 </button>
 
+                                <button type="submit" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded mb-1">
+                                    <a href="{{ route('nilai.create', ['nim' => $item->nim]) }}">Edit Nilai</a>
+                                </button>
+
                                 @can('manage-user')
                                 <form action="{{ route('mahasiswa.destroy', $item->id) }}" method="POST" class="inline-block">
                                     {!! method_field('delete') . csrf_field() !!} 

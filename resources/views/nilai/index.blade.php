@@ -7,9 +7,6 @@
 
     <section class="pt-8 pb-8 bg-gray-200">
         <div class="container relative">
-            <button class="bg-green-500 hover:bg-white text-white font-bold hover:text-green-500 py-1 px-3 border border-transparent hover:border-green-500 rounded mb-5" >
-                <a href="{{ route('nilai.create') }}">Tambah Nilai</a>
-            </button>
             <div class="flex flex-wrap">
                 <div class="w-full self-center px-4 lg:w-1/2">
                     <h1 class="text-2xl font-bold mb-2 mr-3">List Nilai</h1>
@@ -44,9 +41,6 @@
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->ipk }}</td>
                             <td class="text-sm">
-                                <button type="submit" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded mb-1">
-                                    <a href="{{ route('nilai.edit', $item->id) }}">Edit</a>
-                                </button>
 
                                 @can('manage-user')
                                 <form action="{{ route('nilai.destroy', $item->id) }}" method="POST" class="inline-block">

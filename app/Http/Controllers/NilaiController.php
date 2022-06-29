@@ -7,6 +7,7 @@ use App\Models\Matkul;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\NilaiController;
 
 class NilaiController extends Controller
 {
@@ -49,14 +50,20 @@ class NilaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $mahasiswa = Mahasiswa::get();
+        $mahasiswa = Mahasiswa::where('nim', $request['nim'])->get();
+        $nilai = Nilai::where('nim', $request['nim'])->get();
+
+        for($i = 0; $i < count($nilai); $i++){
+            $nilai[$i]['nilai'] = NilaiController::dekonversi($nilai[$i]['nilai']);
+        }
         $matkul = Matkul::get();
 
         return view('nilai.create',[
-            'mahasiswa' => $mahasiswa,
-            'matkul' => $matkul
+            'mahasiswa' => $mahasiswa[0],
+            'matkul' => $matkul,
+            'nilai' => $nilai
         ]);
     }
 
@@ -69,12 +76,87 @@ class NilaiController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        //return $data['nilai'][0];
+        // return $data;
 
-        foreach ($data as $value) {
-            Nilai::create($value);
+        for($i = 0; $i < count($data['kode_matkul']); $i++){
+            if(is_null($data['nilai'][$i])){
+                continue;
+            }
+            $data['nilai'][$i] = NilaiController::konversi($data['nilai'][$i]);
+            //return $data['nilai'][$i];
+            // https://laravel.com/docs/8.x/eloquent#upserts
+            Nilai::updateOrCreate(
+                ['nim' => $data['nim'], 'kode_matkul' => $data['kode_matkul'][$i]],
+                ['nilai' => $data['nilai'][$i]]
+            );
         }
 
-        return redirect()->route('matkul.index');
+        return redirect()->route('nilai.index');
+    }
+
+    public function konversi($nilai){
+        switch ($nilai){
+            case "A":
+                $nilai = 4;
+                return $nilai;
+            case "AB":
+                $nilai = 3.5;
+                return $nilai;
+            case "B":
+                $nilai = 3;
+                return $nilai;
+            case "BC":
+                $nilai = 2.5;
+                return $nilai;
+            case "C":
+                $nilai = 2;
+                return $nilai;
+            case "CD":
+                $nilai = 1.5;
+                return $nilai;
+            case "D":
+                $nilai = 1;
+                return $nilai;
+            case "E":
+                $nilai = 0;
+                return $nilai;
+            case "null":
+                $nilai = NULL;
+                return $nilai;
+        }
+    }
+
+    public function dekonversi($nilai){
+        switch ($nilai){
+            case "4":
+                $nilai = "A";
+                return $nilai;
+            case "3.5":
+                $nilai = "AB";
+                return $nilai;
+            case "3":
+                $nilai = "B";
+                return $nilai;
+            case "2.5":
+                $nilai = "BC";
+                return $nilai;
+            case "2":
+                $nilai = "C";
+                return $nilai;
+            case "1.5":
+                $nilai = "CD";
+                return $nilai;
+            case "1":
+                $nilai = "D";
+                return $nilai;
+            case "0":
+                $nilai = "E";
+                return $nilai;
+            case "null":
+                $nilai = NULL;
+                return $nilai;
+        }
     }
 
     /**
@@ -96,14 +178,7 @@ class NilaiController extends Controller
      */
     public function edit(Nilai $nilai)
     {
-        $mahasiswa = Mahasiswa::get();
-        $matkul = Matkul::get();
-
-        return view('nilai.edit',[
-            'nilai' => $nilai,
-            'mahasiswa' => $mahasiswa,
-            'matkul' => $matkul
-        ]);
+        // 
     }
 
     /**
@@ -113,13 +188,9 @@ class NilaiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Nilai $nilai)
+    public function update(Request $request)
     {
-        $data = $request->all();
-        
-        $nilai->update($data);
-
-        return redirect()->route('nilai.index');
+        // 
     }
 
     /**
@@ -130,6 +201,7 @@ class NilaiController extends Controller
      */
     public function destroy(Nilai $nilai)
     {
+        $nilai = Nilai::where('nim', $nilai->nim);
         $nilai->delete();
 
         return redirect()->route('nilai.index');
