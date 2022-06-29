@@ -7,6 +7,7 @@ use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\KompetensiController;
+use App\Http\Controllers\KurimatkulController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +39,5 @@ Route::middleware([
     Route::resource('mahasiswa', MahasiswaController::class);
     Route::resource('kompetensi', KompetensiController::class);
     Route::resource('nilai', NilaiController::class);
+    Route::resource('kurimatkul', KurimatkulController::class);
 });

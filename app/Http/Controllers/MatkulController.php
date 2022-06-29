@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Matkul;
+use App\Models\Kurikulum;
 use App\Models\Kompetensi;
 use Illuminate\Http\Request;
 use App\Http\Requests\MatkulRequest;
@@ -20,15 +21,18 @@ class MatkulController extends Controller
             $matkul = Matkul::where('kode_matkul', 'like', '%'. request('search') . '%')
                 ->orWhere('nama_matkul', 'like', '%'. request('search') . '%')
                 ->paginate(15);
-            
+            $kurikulum = Kurikulum::get();
             return view('matkul.index', [
-                'matkul' => $matkul
+                'matkul' => $matkul,
+                'kurikulum' => $kurikulum
             ]);
         }
 
         $matkul = Matkul::with(['kompetensi'])->paginate(15);
+        $kurikulum = Kurikulum::get();
         return view('matkul.index', [
-            'matkul' => $matkul
+            'matkul' => $matkul,
+            'kurikulum' => $kurikulum
         ]);
     }
 
