@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'nama' => 'Andy',
             'username' => 'andy123',
-            'roles' => 'admin',
+            'roles' => 'SUPER_ADMIN',
             'jabatan' => 'Dekan',
             'password' => Hash::make('qwerty123')
         ]);
@@ -58,26 +58,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        Matkul::create([
-            'kode_matkul' => 'PSM104',
-            'nama_matkul' => 'Teori Belajar',
-            'sks' => 2,
-            'id_kompetensi' => '1'
-        ]);
-        Matkul::create([
-            'kode_matkul' => 'PSM106',
-            'nama_matkul' => 'Psikologi Pendidikan',
-            'sks' => 3,
-            'id_kompetensi' => '1'
-        ]);
-        Matkul::create([
-            'kode_matkul' => 'PSM108',
-            'nama_matkul' => 'Statistik',
-            'sks' => 3,
-            'id_kompetensi' => '2'
-        ]);
-
-
         Kurikulum::create([
             'kode_kurikulum' => '2020',
             'nama_kurikulum' => 'Kurikulum 2020'
@@ -85,6 +65,29 @@ class DatabaseSeeder extends Seeder
         Kurikulum::create([
             'kode_kurikulum' => '2021',
             'nama_kurikulum' => 'Kurikulum 2021'
+        ]);
+        
+
+        Matkul::create([
+            'kode_matkul' => 'PSM104',
+            'nama_matkul' => 'Teori Belajar',
+            'sks' => 2,
+            'id_kompetensi' => '1',
+            'kode_kurikulum' => '2020'
+        ]);
+        Matkul::create([
+            'kode_matkul' => 'PSM106',
+            'nama_matkul' => 'Psikologi Pendidikan',
+            'sks' => 3,
+            'id_kompetensi' => '1',
+            'kode_kurikulum' => '2020'
+        ]);
+        Matkul::create([
+            'kode_matkul' => 'PSM108',
+            'nama_matkul' => 'Statistik',
+            'sks' => 3,
+            'id_kompetensi' => '2',
+            'kode_kurikulum' => '2021'
         ]);
 
 

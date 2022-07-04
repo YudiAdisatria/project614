@@ -19,6 +19,7 @@ class CreateMatkulsTable extends Migration
             $table->string('nama_matkul');
             $table->integer('sks');
             $table->string('id_kompetensi');
+            $table->string('kode_kurikulum');
 
             $table->timestamps();
             $table->softDeletes();

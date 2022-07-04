@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\Matkul;
 use App\Models\Kurimatkul;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,9 +17,9 @@ class Kurikulum extends Model
         'kode_kurikulum', 'nama_kurikulum', 'keterangan',
     ];
 
-    public function kurimatkul(){
+    public function matkul(){
                             //class mana, fk class, fk sini
-        return $this->hasMany(Kurimatkul::class,'kode_kurikulum');
+        return $this->hasMany(Matkul::class,'kode_kurikulum');
     }
 
     public function getCreatedAtAttribute($value){

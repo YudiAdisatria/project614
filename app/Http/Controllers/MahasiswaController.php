@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use App\Imports\MahasiswaImport;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MahasiswaController extends Controller
 {
@@ -117,6 +119,14 @@ class MahasiswaController extends Controller
     public function destroy(Mahasiswa $mahasiswa)
     {
         $mahasiswa->delete();
+
+        return redirect()->route('mahasiswa.index');
+    }
+
+    public function import(Request $request){
+        $file = $request->file('importMahasiswa');
+        
+        Excel::import(new MahasiswaImport, $file);
 
         return redirect()->route('mahasiswa.index');
     }

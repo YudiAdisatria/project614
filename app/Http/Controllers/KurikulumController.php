@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Matkul;
 use App\Models\Kurikulum;
+use App\Models\Kompetensi;
 use Illuminate\Http\Request;
 
 class KurikulumController extends Controller
@@ -106,5 +108,18 @@ class KurikulumController extends Controller
         $kurikulum->delete();
 
         return redirect()->route('kurikulum.index');
+    }
+
+    public function mataKuliah(Kurikulum $kurikulum)
+    {
+        $matkul = Matkul::with(['kompetensi'])
+                ->where('kode_kurikulum', $kurikulum->kode_kurikulum)->get();
+        $kompetensi = Kompetensi::get();
+        
+        return view('kurikulum.mataKuliah', [
+            'kurikulum' => $kurikulum,
+            'matkul' => $matkul,
+            'kompetensi' => $kompetensi
+        ]);
     }
 }

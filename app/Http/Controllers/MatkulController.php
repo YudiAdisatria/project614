@@ -44,9 +44,11 @@ class MatkulController extends Controller
     public function create()
     {
         $kompetensi = Kompetensi::get();
+        $kurikulum = Kurikulum::get();
 
         return view('matkul.create',[
-            'kompetensi' => $kompetensi
+            'kompetensi' => $kompetensi,
+            'kurikulum' => $kurikulum
         ]);
     }
 
@@ -86,10 +88,13 @@ class MatkulController extends Controller
     {   
         $kompetensi = Kompetensi::get();
         $kompmatkul = Kompetensi::where('id', $matkul->id_kompetensi)->get();
+        $kurikulum = Kurikulum::get();
+
         return view('matkul.edit', [
             'matkul' => $matkul,
             'kompetensi' => $kompetensi,
-            'kompmatkul' => $kompmatkul[0]-> profil
+            'kompmatkul' => $kompmatkul[0],
+            'kurikulum' => $kurikulum
         ]);
     }
 
@@ -120,5 +125,19 @@ class MatkulController extends Controller
         $matkul->delete();
 
         return redirect()->route('matkul.index');
+    }
+
+    public function matkulUpdate(Request $request)
+    {
+        $data = $request->all();
+    
+        for($i = 0; $i < count($data['kode_matkul']); $i++){
+            Matkul::updateOrCreate(
+                ['kode_kurikulum' => $data['kode_kurikulum'], 'kode_matkul' => $data['kode_matkul'][$i]],
+                ['nama_matkul' => $data['nama_matkul'][$i], 'sks' => $data['sks'][$i], 'id_kompetensi' => $data['id_kompetensi'][$i]]
+            );
+        }
+
+        return redirect()->route('kurikulum.index');
     }
 }

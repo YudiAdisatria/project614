@@ -43,13 +43,13 @@
                     </div>
 
                     <div class="flex flex-wrap mt-10">
-                        <div class="w-full  self-center mt-2 px-3 lg:w-1/2">
+                        <div class="w-full  self-center mt-2 px-3 lg:w-1/3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                     SKS Mata Kuliah
                             </label>
                             <input value="{{ old('sks') }}" name="sks" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="numeric" placeholder="SKS">
                         </div>
-                        <div class="w-full  self-center mt-2 px-3 lg:w-1/2">
+                        <div class="w-full  self-center mt-2 px-3 lg:w-1/3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                 Kompetensi
                             </label>
@@ -61,12 +61,24 @@
                                 @endforelse    
                             </select>
                         </div>
+                        <div class="w-full  self-center mt-2 px-3 lg:w-1/3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                                Kurikulum
+                            </label>
+                            <select name="kode_kurikulum" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name">
+                                @forelse ( $kurikulum as $kur)
+                                    <option value="{{ $kur->kode_kurikulum }}">{{ $kur->nama_kurikulum }}</option>
+                                @empty
+                                    
+                                @endforelse    
+                            </select>
+                        </div>
                     </div>
 
                     <div class="flex flex-wrap mt-10">
                         <div class="w-full px-3 text-right">
                             <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                Save Kategori
+                                Save Mata Kuliah
                             </button>
                         </div>
                     </div>

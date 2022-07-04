@@ -34,9 +34,17 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('users', UserController::class);
+
+    Route::put('matkul/{kurikulum}/kurikulum', [MatkulController::class, 'matkulUpdate'])->name('matkul.matkulUpdate');
     Route::resource('matkul', MatkulController::class);
+
+    Route::get('kurikulum/{kurikulum}/matkul', [KurikulumController::class, 'mataKuliah'])->name('kurikulum.matkul');
     Route::resource('kurikulum', KurikulumController::class);
+
+    Route::post('mahasiswa/import', [MahasiswaController::class, 'import'])->name('mahasiswa.import');
     Route::resource('mahasiswa', MahasiswaController::class);
+
+
     Route::resource('kompetensi', KompetensiController::class);
     Route::resource('nilai', NilaiController::class);
     Route::resource('kurimatkul', KurimatkulController::class);
