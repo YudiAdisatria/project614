@@ -55,16 +55,19 @@ class NilaiController extends Controller
         $mahasiswa = Mahasiswa::where('nim', $request['nim'])->get();
         $nilai = Nilai::where('nim', $request['nim'])->get();
 
-        for($i = 0; $i < count($nilai); $i++){
-            $nilai[$i]['nilai'] = NilaiController::dekonversi($nilai[$i]['nilai']);
+        if(count($nilai) === 0){
+            for($i = 0; $i < count($nilai); $i++){
+                $nilai[$i]['nilai'] = NilaiController::dekonversi($nilai[$i]['nilai']);
+            }
+            $matkul = Matkul::get();
+    
+            return view('nilai.create',[
+                'mahasiswa' => $mahasiswa[0],
+                'matkul' => $matkul,
+                'nilai' => $nilai
+            ]);
         }
-        $matkul = Matkul::get();
-
-        return view('nilai.create',[
-            'mahasiswa' => $mahasiswa[0],
-            'matkul' => $matkul,
-            'nilai' => $nilai
-        ]);
+        return redirect()->route('mahasiswa.index')->with('message', 'Nilai sudah ada!');;
     }
 
     /**
