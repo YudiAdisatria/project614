@@ -21,11 +21,18 @@
                 </div>
             </div>
 
+            <form method="POST" action="{{ route('nilai.import') }}" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="importNilai" required="required">    
+                <button type="submit" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded mb-1"> 
+                    Import Nilai
+                </button>
+            </form>
+
             <div class="overflow-auto rounded-lg shadow hidden md:block">
                 <table class="w-full" id="myTable" data-filter-control="true" data-show-search-clear-button="true">
                     <thead class="bg-gray-50 border-b-2 border-gray-200">
                         <tr>
-                            <th class="p-3 text-sm font-semibold tracking-wide text-left"></th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">NIM</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">Nama</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">IPK</th>
@@ -36,14 +43,13 @@
                     <tbody>
                         @forelse ($nilai as $item)
                         <tr class="odd:bg-white even:bg-slate-100">
-                            <td class="p-3 text-sm text-blue-500 font-bold ">{{ $item->id }}</td>
                             <td>{{ $item->nim }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->ipk }}</td>
                             <td class="text-sm">
 
                                 @can('manage-user')
-                                <form action="{{ route('nilai.destroy', $item->id) }}" method="POST" class="inline-block">
+                                <form action="{{ route('nilai.destroy', ['nilai' => $item->nim]) }}" method="POST" class="inline-block">
                                     {!! method_field('delete') . csrf_field() !!} 
                                     <button type="submit" class="bg-transparent hover:bg-red-600 text-red-500 font-semibold hover:text-white py-1 px-5  border border-red-600 hover:border-transparent rounded">
                                         Delete

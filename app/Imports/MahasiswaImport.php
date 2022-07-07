@@ -31,7 +31,7 @@ class MahasiswaImport implements ToModel, WithBatchInserts, WithHeadingRow
         return new Mahasiswa([
             'nim' => $row['nim'],
             'nama' => $row['namamhs'],
-            'ttl' => $row['tplhr'],
+            'ttl' => $row['tplhr']. ', '. $row['tglhr'],
             'nirl' => $row['nirl'],
             'tahun_masuk' => $row['angkatan'],
             'tanggal_lulus' => $row['tgl_lulus'],

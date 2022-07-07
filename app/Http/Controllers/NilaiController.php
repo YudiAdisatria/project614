@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Nilai;
 use App\Models\Matkul;
 use App\Models\Mahasiswa;
+use App\Imports\NilaiImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\NilaiController;
 
 class NilaiController extends Controller
@@ -23,7 +25,7 @@ class NilaiController extends Controller
                 ->rightJoin('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
                 ->join('matkuls', 'nilais.kode_matkul', '=', 'matkuls.kode_matkul')
                 ->select('mahasiswas.id','mahasiswas.nama','mahasiswas.nim', DB::raw('sum(nilais.nilai*matkuls.sks)/sum(matkuls.sks) AS ipk'))
-                ->groupBy('mahasiswas.id','mahasiswas.nama','mahasiswas.nim')
+                ->groupBy('mahasiswas.nama','mahasiswas.nim')
                 ->where('mahasiswas.nim', 'like', '%'. request('search') . '%')
                 ->orWhere('mahasiswas.nama', 'like', '%'. request('search') . '%')
                 ->paginate(15);
@@ -34,10 +36,10 @@ class NilaiController extends Controller
         }
 
         $nilai = DB::table('mahasiswas')
-                ->rightJoin('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
+                ->join('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
                 ->join('matkuls', 'nilais.kode_matkul', '=', 'matkuls.kode_matkul')
-                ->select('mahasiswas.id','mahasiswas.nama','mahasiswas.nim', DB::raw('sum(nilais.nilai*matkuls.sks)/sum(matkuls.sks) AS ipk'))
-                ->groupBy('mahasiswas.id','mahasiswas.nama','mahasiswas.nim')
+                ->select('mahasiswas.nama','nilais.nim', DB::raw('sum(nilais.nilai*matkuls.sks)/sum(matkuls.sks) AS ipk'))
+                ->groupBy('nilais.nim', 'mahasiswas.nama')
                 ->paginate(15);
         
         return view('nilai.index', [
@@ -59,7 +61,7 @@ class NilaiController extends Controller
             for($i = 0; $i < count($nilai); $i++){
                 $nilai[$i]['nilai'] = NilaiController::dekonversi($nilai[$i]['nilai']);
             }
-            $matkul = Matkul::get();
+            $matkul = Matkul::groupBy('kode_matkul')->orderBy('kode_matkul')->get();
     
             return view('nilai.create',[
                 'mahasiswa' => $mahasiswa[0],
@@ -202,11 +204,32 @@ class NilaiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Nilai $nilai)
+    public function destroy($nim)
     {
-        $nilai = Nilai::where('nim', $nilai->nim);
+        return $nim;
+        $nilai = Nilai::where('nim', $nim);
         $nilai->delete();
 
         return redirect()->route('nilai.index');
+    }
+
+    public function import(Request $request){
+        $file = $request->file('importNilai');
+        
+        Excel::import(new NilaiImport, $file);
+
+        return redirect()->route('nilai.index');
+    }
+
+    public function nilaiKompetensi($nim, $kurikulum){
+        DB::table('mahasiswas')
+                ->join('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
+                ->join('matkuls', 'nilais.kode_matkul', '=', 'matkuls.kode_matkul')
+                ->join('kompetensis', 'matkuls.id_kompetensi', '=', 'kompetensis.id')
+                ->select('kompetensis.profil','nilais.nim', DB::raw('sum(nilais.nilai * matkuls.sks)/sum(matkuls.sks)) AS presentase'))
+                ->where('mahasiswas.nim', '=', $nim)
+                ->where('matkuls.kode_kurikulum', '=', $kurikulum)
+                ->groupBy('nilais.nim', 'mahasiswas.nama')
+                ->get();
     }
 }

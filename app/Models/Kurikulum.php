@@ -14,7 +14,7 @@ class Kurikulum extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'kode_kurikulum', 'nama_kurikulum', 'keterangan',
+        'kode_kurikulum', 'nama_kurikulum', 
     ];
 
     public function matkul(){

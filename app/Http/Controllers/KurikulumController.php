@@ -113,7 +113,8 @@ class KurikulumController extends Controller
     public function mataKuliah(Kurikulum $kurikulum)
     {
         $matkul = Matkul::with(['kompetensi'])
-                ->where('kode_kurikulum', $kurikulum->kode_kurikulum)->get();
+                ->where('kode_kurikulum', $kurikulum->kode_kurikulum)
+                ->orderBy('kode_matkul')->get();
         $kompetensi = Kompetensi::get();
         
         return view('kurikulum.mataKuliah', [

@@ -46,6 +46,10 @@ Route::middleware([
 
 
     Route::resource('kompetensi', KompetensiController::class);
+
+    Route::post('nilai/import', [NilaiController::class, 'import'])->name('nilai.import');
     Route::resource('nilai', NilaiController::class);
+
+
     Route::resource('kurimatkul', KurimatkulController::class);
 });
