@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Nilai;
 use App\Models\Matkul;
+use App\Models\Kurikulum;
 use App\Models\Mahasiswa;
 use App\Imports\NilaiImport;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\NilaiController;
@@ -20,6 +23,8 @@ class NilaiController extends Controller
      */
     public function index()
     {
+        $kurikulum = Kurikulum::get();
+
         if(request('search')){
             $nilai = DB::table('mahasiswas')
                 ->rightJoin('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
@@ -28,10 +33,11 @@ class NilaiController extends Controller
                 ->groupBy('mahasiswas.nama','mahasiswas.nim')
                 ->where('mahasiswas.nim', 'like', '%'. request('search') . '%')
                 ->orWhere('mahasiswas.nama', 'like', '%'. request('search') . '%')
-                ->paginate(15);
+                ->paginate(20);
             
             return view('nilai.index', [
-                'nilai' => $nilai
+                'nilai' => $nilai,
+                'kurikulum' => $kurikulum
             ]);
         }
 
@@ -40,10 +46,11 @@ class NilaiController extends Controller
                 ->join('matkuls', 'nilais.kode_matkul', '=', 'matkuls.kode_matkul')
                 ->select('mahasiswas.nama','nilais.nim', DB::raw('sum(nilais.nilai*matkuls.sks)/sum(matkuls.sks) AS ipk'))
                 ->groupBy('nilais.nim', 'mahasiswas.nama')
-                ->paginate(15);
+                ->paginate(20);
         
         return view('nilai.index', [
-            'nilai' => $nilai
+            'nilai' => $nilai,
+            'kurikulum' => $kurikulum
         ]);
     }
 
@@ -221,15 +228,42 @@ class NilaiController extends Controller
         return redirect()->route('nilai.index');
     }
 
-    public function nilaiKompetensi($nim, $kurikulum){
-        DB::table('mahasiswas')
+    public function nilaiKompetensi(Request $request){
+        $kurikulum = $request->kurikulum;
+        $nim = $request->nim;
+        $report = [];
+        for($i = 0; $i < count($nim); $i++){
+            $nilai = DB::table('mahasiswas')
                 ->join('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
                 ->join('matkuls', 'nilais.kode_matkul', '=', 'matkuls.kode_matkul')
                 ->join('kompetensis', 'matkuls.id_kompetensi', '=', 'kompetensis.id')
-                ->select('kompetensis.profil','nilais.nim', DB::raw('sum(nilais.nilai * matkuls.sks)/sum(matkuls.sks)) AS presentase'))
-                ->where('mahasiswas.nim', '=', $nim)
+                ->select('kompetensis.profil', 'kompetensis.deskripsi', 'nilais.nim', DB::raw('sum(nilais.nilai * matkuls.sks)/sum(matkuls.sks) AS presentase'))
+                ->where('mahasiswas.nim', '=', $nim[$i])
                 ->where('matkuls.kode_kurikulum', '=', $kurikulum)
-                ->groupBy('nilais.nim', 'mahasiswas.nama')
+                ->groupBy('nilais.nim', 'mahasiswas.nama', 'kompetensis.profil', 'kompetensis.deskripsi')
                 ->get();
+
+            $mahasiswa = Mahasiswa::where("nim", "=", $nim[$i])->get();
+
+            $report[$i]['kompetensi'] = clone $nilai;
+            $report[$i]['mahasiswa'] = clone $mahasiswa[0];
+        }
+        $admin = User::whereIn("jabatan", ["dekan", "Dekan", "DEKAN"])->get();
+        // return $report[1]['kompetensi'][0];
+
+        $pdf = PDF::loadView('nilai.report', [
+            'admin' => $admin[0],
+            'kurikulum' => $kurikulum,
+            'report' => $report
+        ]);
+        // return public_path('\css\app.css');
+        return $pdf->download('itsolutionstuff.pdf');
+
+        return view('nilai.report', [
+            'admin' => $admin[0],
+            'kurikulum' => $kurikulum,
+            'report' => $report
+        ]);
+        return redirect()->route('nilai.index');
     }
 }

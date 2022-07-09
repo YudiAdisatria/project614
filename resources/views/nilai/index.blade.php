@@ -29,10 +29,25 @@
                 </button>
             </form>
 
+            <form id="reportKompetensi" action="{{ route('nilai.nilaiKompetensi') }}" class="w-full" method="POST" enctype="multipart/form-data">
+                @csrf
+                <select name="kurikulum">
+                    @forelse ($kurikulum as $kuri)
+                    <option value="{{ $kuri->kode_kurikulum }}">{{ $kuri->nama_kurikulum }}</option>
+                    @empty
+                    <option value="">Belum ada kurikulum</option> 
+                    @endforelse
+                </select>
+                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    Buat Laporan
+                </button>
+            </form>
+
             <div class="overflow-auto rounded-lg shadow hidden md:block">
                 <table class="w-full" id="myTable" data-filter-control="true" data-show-search-clear-button="true">
                     <thead class="bg-gray-50 border-b-2 border-gray-200">
                         <tr>
+                            <th class="p-3 text-sm font-semibold tracking-wide text-left"></th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">NIM</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">Nama</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">IPK</th>
@@ -43,6 +58,7 @@
                     <tbody>
                         @forelse ($nilai as $item)
                         <tr class="odd:bg-white even:bg-slate-100">
+                            <td><input type="checkbox" form="reportKompetensi" name="nim[]" value="{{ $item->nim }}"></td>
                             <td>{{ $item->nim }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->ipk }}</td>
