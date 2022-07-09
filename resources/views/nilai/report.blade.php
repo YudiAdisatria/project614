@@ -81,7 +81,7 @@
                         <td>{{ $detail->profil }}: <br>
                             {{ $detail->deskripsi }} </td>
                         <td>Kurang menguasai pengetahuan dan kurang terampil sebagai {{ $detail->profil }}</td>
-                        <td class="col-span-4">{{ $detail->presentase }}</td>
+                        <td class="col-span-4">{{ round($detail->presentase, 2) }}</td>
                         <td>Sangat menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
                     </tr> 
                 @empty

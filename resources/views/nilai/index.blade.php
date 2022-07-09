@@ -61,7 +61,7 @@
                             <td><input type="checkbox" form="reportKompetensi" name="nim[]" value="{{ $item->nim }}"></td>
                             <td>{{ $item->nim }}</td>
                             <td>{{ $item->nama }}</td>
-                            <td>{{ $item->ipk }}</td>
+                            <td>{{ round($item->ipk, 2) }}</td>
                             <td class="text-sm">
 
                                 @can('manage-user')
