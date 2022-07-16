@@ -16,7 +16,7 @@ class CreateKompetensisTable extends Migration
         Schema::create('kompetensis', function (Blueprint $table) {
             $table->id();
             $table->string('profil');
-            $table->string('deskripsi');
+            $table->text('deskripsi');
 
             $table->timestamps();
             $table->softDeletes();

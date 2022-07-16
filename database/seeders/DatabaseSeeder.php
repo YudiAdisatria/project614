@@ -66,6 +66,10 @@ class DatabaseSeeder extends Seeder
             'kode_kurikulum' => '2021',
             'nama_kurikulum' => 'Kurikulum 2021'
         ]);
+        Kurikulum::create([
+            'kode_kurikulum' => '2022',
+            'nama_kurikulum' => 'Kurikulum 2022'
+        ]);
         
 
         Matkul::create([
@@ -144,5 +148,64 @@ class DatabaseSeeder extends Seeder
             'kode_kurikulum' => '2021',
             'kode_matkul' => 'PSM106'
         ]);
+
+        // Kompetensi import;
+        Kompetensi::truncate();
+  
+        $csvFile = fopen(base_path("db_event\kompetensi.csv"), "r");
+  
+        $firstline = true;
+        while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
+            if (!$firstline) {
+                Kompetensi::create([
+                    "profil" => $data['0'],
+                    "deskripsi" => $data['1']
+                ]);    
+            }
+            $firstline = false;
+        }
+   
+        fclose($csvFile);
+
+        // Matkul import;
+        Matkul::truncate();
+  
+        $csvFile = fopen(base_path("db_event\matkul.csv"), "r");
+
+        $firstline = true;
+        while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
+            if (!$firstline) {
+                Matkul::create([
+                    "kode_matkul" => $data['0'],
+                    "nama_matkul" => $data['1'],
+                    "sks" => $data['2'],
+                    "id_kompetensi" => $data['3'],
+                    "kode_kurikulum" => $data['4']
+                ]);    
+            }
+            $firstline = false;
+        }
+   
+        fclose($csvFile);
+
+        // Matkul import;
+        $csvFile = fopen(base_path("db_event\TALUMNI.csv"), "r");
+
+        $firstline = true;
+        while (($data = fgetcsv($csvFile, 2000, ";")) !== FALSE) {
+            if (!$firstline) {
+                Mahasiswa::create([
+                    "nim" => $data['0'],
+                    "nama" => $data['6'],
+                    "ttl" => $data['5']. ", ". $data['3'],
+                    "nirl" => $data['4'],
+                    "tahun_masuk" => $data['2'],
+                    "tanggal_lulus" => $data['6']
+                ]);    
+            }
+            $firstline = false;
+        }
+   
+        fclose($csvFile);
     }
 }
