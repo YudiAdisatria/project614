@@ -177,9 +177,9 @@ class NilaiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        return $request;
     }
 
     /**
@@ -231,20 +231,41 @@ class NilaiController extends Controller
     public function nilaiKompetensi(Request $request){
         $kurikulum = $request->kurikulum;
         $nim = $request->nim;
+        $nilai = DB::table('mahasiswas')
+                ->join('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
+                ->join('matkuls', 'nilais.kode_matkul', '=', 'matkuls.kode_matkul')
+                ->join('kompetensis', 'matkuls.id_kompetensi', '=', 'kompetensis.id')
+                ->select(DB::raw('CAST(sum(nilais.nilai * matkuls.sks)/sum(matkuls.sks) as DECIMAL(10,2)) AS presentase'))
+                ->where('mahasiswas.nim', '=', $nim)
+                ->where('matkuls.kode_kurikulum', '=', $kurikulum)
+                ->groupBy('nilais.nim', 'mahasiswas.nama', 'kompetensis.profil', 'kompetensis.deskripsi')
+                ->get();
+        $temp = [];
+
+        for($j = 0; $j < count($nilai); $j++){
+            array_push($temp, (float)$nilai[$j]->presentase);
+        }
+        // return $nilai;
         $report = [];
         for($i = 0; $i < count($nim); $i++){
             $nilai = DB::table('mahasiswas')
                 ->join('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
                 ->join('matkuls', 'nilais.kode_matkul', '=', 'matkuls.kode_matkul')
                 ->join('kompetensis', 'matkuls.id_kompetensi', '=', 'kompetensis.id')
-                ->select('kompetensis.profil', 'kompetensis.deskripsi', 'nilais.nim', DB::raw('sum(nilais.nilai * matkuls.sks)/sum(matkuls.sks) AS presentase'))
+                ->select('kompetensis.profil', 'kompetensis.deskripsi', 'nilais.nim', DB::raw('CAST(sum(nilais.nilai * matkuls.sks)/sum(matkuls.sks) as DECIMAL(10,2)) AS presentase'))
                 ->where('mahasiswas.nim', '=', $nim[$i])
                 ->where('matkuls.kode_kurikulum', '=', $kurikulum)
                 ->groupBy('nilais.nim', 'mahasiswas.nama', 'kompetensis.profil', 'kompetensis.deskripsi')
                 ->get();
 
+            $temp = [];
+
+            for($j = 0; $j < count($nilai); $j++){
+                array_push($temp, (float)$nilai[$j]->presentase);
+            }
             $mahasiswa = Mahasiswa::where("nim", "=", $nim[$i])->get();
 
+            $report[$i]['nilai'] = $temp;
             $report[$i]['kompetensi'] = clone $nilai;
             $report[$i]['mahasiswa'] = clone $mahasiswa[0];
         }
@@ -258,11 +279,12 @@ class NilaiController extends Controller
         ]);
         // return public_path('\css\app.css');
         return $pdf->download('itsolutionstuff.pdf'); */
-
+        // return count($nim);
         return view('nilai.report', [
             'admin' => $admin[0],
             'kurikulum' => $kurikulum,
-            'report' => $report
+            'report' => $report,
+            'jumlah' => count($nim)
         ]);
         return redirect()->route('nilai.index');
     }

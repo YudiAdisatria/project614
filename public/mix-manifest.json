@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/chart.js/chart.js": "/chart.js/chart.js"
+    "/chart.js/chart.js": "/chart.js/chart.js",
+    "/chart.js/chartjs-plugin-datalabels.js": "/chart.js/chartjs-plugin-datalabels.js"
 }
