@@ -25,26 +25,12 @@
             </div>
 
             <div class="overflow-auto rounded-lg shadow hidden md:block">
-                <form id="saveKurimatkul" action="{{ route('kurimatkul.store') }}" class="w-full" method="POST" enctype="multipart/form-data">
-                @csrf
-                    <select name="kurikulum">
-                        @forelse ($kurikulum as $kuri)
-                        <option value="{{ $kuri->kode_kurikulum }}">{{ $kuri->nama_kurikulum }}</option>
-                        @empty
-                        <option value="">Belum ada kurikulum</option> 
-                        @endforelse
-                    </select>
-                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                        Save Mata Kuliah pada Kurikulum
-                    </button>
-                </form>
-
                 <table class="w-full" id="myTable" data-filter-control="true" data-show-search-clear-button="true">
                     <thead class="bg-gray-50 border-b-2 border-gray-200">
                         <tr>
-                            <th class="p-3 text-sm font-semibold tracking-wide text-left"></th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">Kode Mata Kuliah</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">Nama Mata Kuliah</th>
+                            <th class="p-3 text-sm font-semibold tracking-wide text-left">Kurikulum</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">SKS</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">Kompetensi</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">Action</th>
@@ -54,9 +40,9 @@
                     <tbody>
                         @forelse ($matkul as $item)
                         <tr class="odd:bg-white even:bg-slate-100">
-                            <td><input type="checkbox" form="saveKurimatkul" name="kode[]" value="{{ $item->kode_matkul }}"></td>
                             <td class="p-3 text-sm text-blue-500 font-bold ">{{ $item->kode_matkul }}</td>
                             <td>{{ $item->nama_matkul }}</td>
+                            <td>{{ $item->kurikulum[0]->nama_kurikulum }}</td>
                             <td>{{ $item->sks }}</td>
                             <td>{{ $item->kompetensi->profil }}</td>
                             <td class="text-sm">

@@ -39,8 +39,8 @@
                         @forelse ($kompetensi as $item)
                         <tr class="odd:bg-white even:bg-slate-100">
                             <td class="p-3 text-sm text-blue-500 font-bold ">{{ $item->id }}</td>
-                            <td>{{ $item->profil }}</td>
-                            <td>{{ $item->deskripsi }}</td>
+                            <td class="max-w-xs">{{ $item->profil }}</td>
+                            <td class="max-w-2xl p-3">{{ $item->deskripsi }}</td>
                             <td class="text-sm">
                                 <button type="submit" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded mb-1">
                                     <a href="{{ route('kompetensi.edit', ['kompetensi' => $item->id]) }}">

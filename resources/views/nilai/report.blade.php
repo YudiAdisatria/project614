@@ -53,7 +53,6 @@
         }
     ?>
     @forelse ($report as $details)
-        {{ $i }}
         <?php $i++;?>
         <h1>PROFIL KOMPETENSI SARJANA PSIKOLOGI</h1>
         <h3>FAKULTAS PSIKOLOGI UNIVERSITAS KATOLIK SOEGIJAPRANATA</h3>

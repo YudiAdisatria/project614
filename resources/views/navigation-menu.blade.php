@@ -37,9 +37,6 @@
                     <x-jet-nav-link href="{{ route('nilai.index') }}" :active="request()->routeIs('nilai.*')">
                         {{ __('Nilai') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Report') }}
-                    </x-jet-nav-link>
                 </div>
             </div>
 
