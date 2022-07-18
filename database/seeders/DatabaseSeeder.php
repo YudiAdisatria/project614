@@ -200,7 +200,7 @@ class DatabaseSeeder extends Seeder
                     "ttl" => $data['5']. ", ". $data['3'],
                     "nirl" => $data['4'],
                     "tahun_masuk" => $data['2'],
-                    "tanggal_lulus" => $data['6']
+                    "tanggal_lulus" => $data['7']
                 ]);    
             }
             $firstline = false;
