@@ -251,13 +251,13 @@ class NilaiController extends Controller
         $admin = User::whereIn("jabatan", ["dekan", "Dekan", "DEKAN"])->get();
         // return $report[1]['kompetensi'][0];
 
-        $pdf = PDF::loadView('nilai.report', [
+        /* $pdf = PDF::loadView('nilai.report', [
             'admin' => $admin[0],
             'kurikulum' => $kurikulum,
             'report' => $report
         ]);
         // return public_path('\css\app.css');
-        return $pdf->download('itsolutionstuff.pdf');
+        return $pdf->download('itsolutionstuff.pdf'); */
 
         return view('nilai.report', [
             'admin' => $admin[0],

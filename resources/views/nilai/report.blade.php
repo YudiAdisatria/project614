@@ -50,7 +50,7 @@
     ?>
     @forelse ($report as $details)
         <h1>PROFIL KOMPETENSI SARJANA PSIKOLOGI</h1>
-        <h3>FAKULTAS PSIKOLOGI UNIVERSITAS KATOLIK SOEGIJAPRANAT</h3>
+        <h3>FAKULTAS PSIKOLOGI UNIVERSITAS KATOLIK SOEGIJAPRANATA</h3>
         
         <!-- Data Diri -->
         <p>NAMA MAHASISWA   : {{ $details['mahasiswa']->nama }}</p>
@@ -60,7 +60,7 @@
         <p>NIRL             : {{ $details['mahasiswa']->nirl }}</p>
         <p>TAHUN MASUK      : {{ $details['mahasiswa']->tahun_masuk }}</p>
         <p>TANGGAL LULUS    : {{ $details['mahasiswa']->tanggal_lulus }}</p>
-        <p>KURIKULUM        : {{ $details['mahasiswa']->kurikulum }}</p>
+        <p>KURIKULUM        : {{ $kurikulum }}</p>
 
         <!-- Kompetensi -->
         <table>
