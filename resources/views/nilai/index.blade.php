@@ -42,7 +42,7 @@
                     <form method="POST" action="{{ route('nilai.import') }}" enctype="multipart/form-data">
                         @csrf
                         <input type="file" name="importNilai" required="required">    
-                        <button type="submit" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded mb-1"> 
+                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"> 
                             Import Nilai
                         </button>
                     </form>
@@ -65,7 +65,7 @@
                     <tbody>
                         @forelse ($nilai as $item)
                         <tr class="odd:bg-white even:bg-slate-100">
-                            <td><input type="checkbox" class="ml-6" form="reportKompetensi" name="nim[]" value="{{ $item->nim }}"></td>
+                            <td><input type="checkbox" class="mx-3 my-3" form="reportKompetensi" name="nim[]" value="{{ $item->nim }}"></td>
                             <td>{{ $item->nim }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>Nilai dan Mata Kuliah sudah ada</td>

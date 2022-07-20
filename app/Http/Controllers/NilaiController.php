@@ -64,11 +64,18 @@ class NilaiController extends Controller
         $mahasiswa = Mahasiswa::where('nim', $request['nim'])->get();
         $nilai = Nilai::where('nim', $request['nim'])->get();
 
+        if($request['kurikulum'] == null){
+            return redirect()->route('mahasiswa.index')->with('message', 'Silakan pilih kurikulum!');
+        }
+
         if(count($nilai) === 0){
-            for($i = 0; $i < count($nilai); $i++){
-                $nilai[$i]['nilai'] = NilaiController::dekonversi($nilai[$i]['nilai']);
-            }
-            $matkul = Matkul::groupBy('kode_matkul')->orderBy('kode_matkul')->get();
+            // for($i = 0; $i < count($nilai); $i++){
+            //     $nilai[$i]['nilai'] = NilaiController::dekonversi($nilai[$i]['nilai']);
+            // }
+            $matkul = Matkul::select('kode_matkul', 'nama_matkul')
+                ->where('kurikulum', $request['kurikulum'])
+                ->groupBy('kode_matkul', 'nama_matkul')
+                ->orderBy('kode_matkul')->get();
     
             return view('nilai.create',[
                 'mahasiswa' => $mahasiswa[0],
@@ -76,7 +83,7 @@ class NilaiController extends Controller
                 'nilai' => $nilai
             ]);
         }
-        return redirect()->route('mahasiswa.index')->with('message', 'Nilai sudah ada!');;
+        return redirect()->route('mahasiswa.index')->with('message', 'Nilai sudah ada!');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kurikulum;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Imports\MahasiswaImport;
@@ -17,6 +18,7 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
+        $kurikulum = Kurikulum::get();
         if(request('search')){
             $mahasiswa = Mahasiswa::where('nim', 'like', '%'. request('search') . '%')
                 ->orWhere('nama', 'like', '%'. request('search') . '%')
@@ -27,14 +29,16 @@ class MahasiswaController extends Controller
                 ->paginate(15);
             
             return view('mahasiswa.index', [
-                'mahasiswa' => $mahasiswa
+                'mahasiswa' => $mahasiswa,
+                'kurikulum' => $kurikulum
             ]);
         }
 
         $mahasiswa = Mahasiswa::paginate(15);
 
         return view('mahasiswa.index', [
-            'mahasiswa' => $mahasiswa
+            'mahasiswa' => $mahasiswa,
+            'kurikulum' => $kurikulum
         ]);
     }
 

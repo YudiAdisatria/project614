@@ -20,7 +20,7 @@
                 <form method="POST" action="{{ route('mahasiswa.import') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="importMahasiswa" class="ml-10" required="required">    
-                    <button type="submit" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded mb-1"> 
+                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"> 
                         Import Mahasiswa
                     </button>
                 </form>
@@ -39,6 +39,21 @@
                     </form>
                 </div>
             </div>
+
+            <div>
+                <select name="kurikul" id="kurikul" onchange="setKurikulum()"
+                class="mx-4 mb-4"
+                >
+                    <?php $kurikul = "";?>
+                    <option value="">Pilih Kurikulum</option>
+                    @forelse ($kurikulum as $kuri)
+                    <option value="{{ $kuri->kode_kurikulum }}">{{ $kuri->nama_kurikulum }}</option>
+                    @empty
+                    <option value="">Belum ada kurikulum</option> 
+                    @endforelse
+                </select>
+            </div>
+            
 
             <div class="overflow-auto rounded-lg shadow hidden md:block">
                 <table class="w-full" id="myTable" data-filter-control="true" data-show-search-clear-button="true">
@@ -59,19 +74,19 @@
                         @forelse ($mahasiswa as $item)
                         <tr class="odd:bg-white even:bg-slate-100">
                             <td class="p-3 text-sm text-blue-500 font-bold ">{{ $item->id }}</td>
-                            <td>{{ $item->nim }}</td>
-                            <td>{{ $item->nama }}</td>
+                            <td class="text-center">{{ $item->nim }}</td>
+                            <td class="p-3">{{ $item->nama }}</td>
                             <td>{{ $item->ttl }}</td>
-                            <td>{{ $item->nirl }}</td>
-                            <td>{{ $item->tahun_masuk }}</td>
-                            <td>{{ $item->tanggal_lulus }}</td>
+                            <td class="text-center">{{ $item->nirl }}</td>
+                            <td class="text-center">{{ $item->tahun_masuk }}</td>
+                            <td class="text-center">{{ $item->tanggal_lulus }}</td>
                             <td class="text-sm">
                                 <button type="submit" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded mb-1">
                                     <a href="{{ route('mahasiswa.edit', $item->id) }}">Edit</a>
                                 </button>
 
                                 <button type="submit" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded mb-1">
-                                    <a href="{{ route('nilai.create', ['nim' => $item->nim]) }}">Tambah Nilai</a>
+                                    <a href="{{ route('nilai.create', ['nim' => $item->nim, 'kurikulum' => $kurikul]) }}">Tambah Nilai</a>
                                 </button>
 
                                 @can('manage-user')
@@ -135,4 +150,12 @@
             {{ $mahasiswa->links() }}
         </div>
     </section>
+
+    <script>
+        function setKurikulum(){
+            var kurikulum = document.getElementById('kurikul').value;
+            $kurikul = kurikulum;
+            console.log($kurikul);
+        }
+    </script>
 </x-app-layout>
