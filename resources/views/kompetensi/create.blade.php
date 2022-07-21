@@ -34,8 +34,8 @@
                                 <input value="{{ old('kode_kompetensi') }}" name="kode_kompetensi" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Nama Profil Kompetensi" required>
                             </div>
                         
-                            <div class="w-full  self-center mt-2 px-3 lg:w-1/2">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                            <div class="w-full  self-center mt-2 px-3">
+                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name" onkeypress="this.style.width = (this.value.length + 1) + 'em';">
                                     Deskripsi Profil Kompetensi
                                 </label>
                                 <input value="{{ old('nama_kompetensi') }}" name="nama_kompetensi" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Deskripsi Profil Kompetensi" required>

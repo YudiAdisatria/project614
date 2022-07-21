@@ -27,7 +27,16 @@ class MahasiswaController extends Controller
                 ->orWhere('tahun_masuk', 'like', '%'. request('search') . '%')
                 ->orWhere('tanggal_lulus', 'like', '%'. request('search') . '%')
                 ->paginate(15);
-            
+
+            if(request('kurikul')){
+                $kurikul = request('kurikul');
+
+                return view('mahasiswa.index', [
+                    'mahasiswa' => $mahasiswa,
+                    'kurikulum' => $kurikulum,
+                    'kurikul' => $kurikul
+                ]);
+            }
             return view('mahasiswa.index', [
                 'mahasiswa' => $mahasiswa,
                 'kurikulum' => $kurikulum
@@ -35,6 +44,16 @@ class MahasiswaController extends Controller
         }
 
         $mahasiswa = Mahasiswa::paginate(15);
+
+        if(request('kurikul')){
+            $kurikul = request('kurikul');
+
+            return view('mahasiswa.index', [
+                'mahasiswa' => $mahasiswa,
+                'kurikulum' => $kurikulum,
+                'kurikul' => $kurikul
+            ]);
+        }
 
         return view('mahasiswa.index', [
             'mahasiswa' => $mahasiswa,

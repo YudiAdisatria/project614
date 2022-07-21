@@ -37,7 +37,7 @@
                             </div>
                         
                         
-                            <div class="w-full  self-center mt-2 px-3 lg:w-1/2">
+                            <div class="w-full  self-center mt-2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                     Deskripsi
                                 </label>

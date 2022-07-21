@@ -23,17 +23,17 @@
                         {{ __('User') }}
                     </x-jet-nav-link>
                     @endcan
-                    <x-jet-nav-link href="{{ route('matkul.index') }}" :active="request()->routeIs('matkul.*')">
-                        {{ __('Mata Kuliah') }}
-                    </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('kurikulum.index') }}" :active="request()->routeIs('kurikulum.*')">
                         {{ __('Kurikulum') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('mahasiswa.index') }}" :active="request()->routeIs('mahasiswa.*')">
-                        {{ __('Mahasiswa') }}
-                    </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('kompetensi.index') }}" :active="request()->routeIs('kompetensi.*')">
                         {{ __('Kompetensi') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('matkul.index') }}" :active="request()->routeIs('matkul.*')">
+                        {{ __('Mata Kuliah') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('mahasiswa.index') }}" :active="request()->routeIs('mahasiswa.*')">
+                        {{ __('Mahasiswa') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('nilai.index') }}" :active="request()->routeIs('nilai.*')">
                         {{ __('Nilai') }}

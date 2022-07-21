@@ -73,7 +73,7 @@ class NilaiController extends Controller
             //     $nilai[$i]['nilai'] = NilaiController::dekonversi($nilai[$i]['nilai']);
             // }
             $matkul = Matkul::select('kode_matkul', 'nama_matkul')
-                ->where('kurikulum', $request['kurikulum'])
+                ->where('kode_kurikulum', $request['kurikulum'])
                 ->groupBy('kode_matkul', 'nama_matkul')
                 ->orderBy('kode_matkul')->get();
     
@@ -83,7 +83,7 @@ class NilaiController extends Controller
                 'nilai' => $nilai
             ]);
         }
-        return redirect()->route('mahasiswa.index')->with('message', 'Nilai sudah ada!');
+        return redirect()->route('mahasiswa.index')->with('message', 'Nilai sudah ada!')->with('kurikul', $request['kurikulum']);
     }
 
     /**
@@ -220,7 +220,6 @@ class NilaiController extends Controller
      */
     public function destroy($nim)
     {
-        return $nim;
         $nilai = Nilai::where('nim', $nim);
         $nilai->delete();
 
