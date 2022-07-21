@@ -127,27 +127,6 @@ class DatabaseSeeder extends Seeder
             'nilai' => 3
         ]);
 
-        Kurimatkul::create([
-            'kode_kurikulum' => '2020',
-            'kode_matkul' => 'PSM104'
-        ]);
-        Kurimatkul::create([
-            'kode_kurikulum' => '2020',
-            'kode_matkul' => 'PSM106'
-        ]);
-        Kurimatkul::create([
-            'kode_kurikulum' => '2020',
-            'kode_matkul' => 'PSM108'
-        ]);
-
-        Kurimatkul::create([
-            'kode_kurikulum' => '2021',
-            'kode_matkul' => 'PSM104'
-        ]);
-        Kurimatkul::create([
-            'kode_kurikulum' => '2021',
-            'kode_matkul' => 'PSM106'
-        ]);
 
         // Kompetensi import;
         Kompetensi::truncate();
@@ -181,26 +160,6 @@ class DatabaseSeeder extends Seeder
                     "sks" => $data['2'],
                     "id_kompetensi" => $data['3'],
                     "kode_kurikulum" => $data['4']
-                ]);    
-            }
-            $firstline = false;
-        }
-   
-        fclose($csvFile);
-
-        // Matkul import;
-        $csvFile = fopen(base_path("db_event\TALUMNI.csv"), "r");
-
-        $firstline = true;
-        while (($data = fgetcsv($csvFile, 2000, ";")) !== FALSE) {
-            if (!$firstline) {
-                Mahasiswa::create([
-                    "nim" => $data['0'],
-                    "nama" => $data['6'],
-                    "ttl" => $data['5']. ", ". $data['3'],
-                    "nirl" => $data['4'],
-                    "tahun_masuk" => $data['2'],
-                    "tanggal_lulus" => $data['7']
                 ]);    
             }
             $firstline = false;
