@@ -42,5 +42,25 @@
         @stack('modals')
 
         @livewireScripts
+        <!-- Footer Section Start-->
+
+        <footer class="pt-8 pb-8 bg-blue-600 bottom-0">
+            <div class="container">
+                <div class="flex flex-wrap">
+                    <div class="w-full">
+                        <p class="font-bold text-2xl text-white text-center mb-8">
+                            Profil Kompetensi Sarjana Psikologi<br>Unika Soegijapranata Semarang
+                        </p>
+                    </div>
+                    <div class="w-full pt-8 border-t border-white">
+                        <p class="font-medium text-sm text-white text-center">
+                            Dibuat oleh Roy Antonio & Yudistira S.A <br> (Teknik Informatika UNIKA Soegijapranata)
+                        </p>
+                    </div>
+                
+                </div>
+            </div>
+        </footer>
+        <!-- Footer Section End-->
     </body>
 </html>
