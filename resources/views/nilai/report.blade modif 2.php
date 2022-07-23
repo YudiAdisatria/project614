@@ -16,6 +16,11 @@
         .page-break {
             page-break-after: always;
         }
+        @media print {
+            .print{
+                break-inside: avoid;
+            }
+        }
     </style>
     
     <!-- Scripts -->
@@ -77,15 +82,17 @@
         </div>
 
         <!-- Kompetensi -->
+        <!-- <div style="height: 100%;width: 790px; position: sticky;">
+            <canvas class="p-2" id='myChart{{$i-1}}'></canvas>
+        </div> -->
         <div class="flex">
-            <div class="mt-10">
+            <div class="">
                 <table class="border-collapse border border-slate-500"> 
                     <thead>
                         <tr>
-                            <th class="border border-slate-600  bg-slate-400" style="width=260px;">KOMPETENSI</th>
-                            <th class="border border-slate-600  bg-slate-400" style="width=130px;">KURANG KOMPETEN</th>
-                            <th class="border border-slate-600  bg-slate-400" style="width=260px;">GRAFIK</th>
-                            <th class="border border-slate-600  bg-slate-400" style="width=130px;">SANGAT KOMPETEN</th>
+                            <th class="border border-slate-600 bg-slate-400 w-1/6">KOMPETENSI</th>
+                            <th class="border border-slate-600 bg-slate-400 w-4/6">DESKRIPSI</th>
+                            <th class="border border-slate-600 bg-slate-400 w-1/6">NILAI</th>
                         </tr>
                     </thead>
                     
@@ -93,13 +100,9 @@
                         <?php $j=0; $col = count($details['kompetensi']);?>
                         @forelse ($details['kompetensi'] as $detail)
                             <tr>
-                                <td  style="width=260px;" class="tracking-tight text-sm text-justify border border-slate-700 p-2 h-32">{{ $detail->profil }}: <br>
-                                    {{ $detail->deskripsi }} </td>
-                                <td  class="tracking-tight text-sm border border-slate-700 p-2 h-32">Kurang menguasai pengetahuan dan kurang terampil sebagai {{ $detail->profil }}</td>
-                                @if ($j == 0)
-                                <td  class="tracking-tight text-sm border border-slate-700 p-2 h-32" rowspan="{{$col}}"><canvas class="p-2" id='myChart{{$i-1}}' ></canvas></td>
-                                @endif
-                                <td class="tracking-tight text-center border text-sm border-slate-700 p-2 h-32">Sangat menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
+                                <td class="tracking-tight text-sm border border-slate-700 p-2 w-1/6">{{ $detail->profil }}</td>
+                                <td class="tracking-tight text-sm border border-slate-700 p-2 text-justify w-4/6">{{ $detail->deskripsi }} </td>
+                                <td class="tracking-tight text-sm border border-slate-700 p-2 text-center w-1/6">{{ $detail->presentase }} </td>
                             </tr> 
                             <?php $j++; ?>
                         @empty
@@ -108,31 +111,25 @@
                     </tbody>
                 </table>
             </div>
-            
-            <!-- <div class="w-2/5">
-                <canvas class="p-2" id='myChart{{$i-1}}' ></canvas>
+        </div>
+        <br> <br> <br>
+        <div class="print grid grid-cols-2">
+            <div class="justify-self-end mr-6">
+                <div class="box-border h-[13rem] w-[10rem] p-4 border-2 border-slate-600 ml-36 justify-self-end text-center">
+                    <p class="mt-12">Foto</p>
+                    <p>3 X 4</p>
+                </div>
             </div>
-
-            <div class="w-1/5 mt-10">
-                <table class="border-collapse border border-slate-500">
-                    <thead>
-                        <tr>
-                            <th class="border border-slate-600 bg-slate-400 ">SANGAT KOMPETEN</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody>
-                        @forelse ($details['kompetensi'] as $detail)
-                            <tr>
-                                <td class="tracking-tight text-center border text-sm border-slate-700 p-2 h-32">Sangat menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
-                            </tr> 
-                        @empty
-                        
-                        @endforelse
-                    </tbody>
-                </table>
-            </div> -->
-            
+            <div class="justify-self-start"> 
+                <p>Semarang, <?php echo tgl_indo(date('Y-m-d'))?></p>
+                <p>Dekan, </p>
+                <br> <br> <br> <br> <br>
+                <p>{{ $admin->nama }}</p>
+            </div>
+        </div>
+        <br><br>
+        <div class="print" style="height: 100%;width: 790px; position: sticky;">
+            <canvas class="p-2" id='myChart{{$i-1}}'></canvas>
         </div>
             <script>
                 function beforePrintHandler () {
@@ -141,14 +138,16 @@
                     }
                 }
                 var nilai = @json($report[$i-1]['nilai']);
+                var label = @json($report[$i-1]['label']);
+                var nama = @json($report[$i-1]['mahasiswa']->nama);
                 var ctx{{$i-1}} = document.getElementById('myChart{{$i-1}}').getContext('2d');
                 var myChart{{$i-1}} = new Chart(ctx{{$i-1}}, {
                     type: 'line',
                     data: {
-                        labels: new Array(nilai.length).fill(" "),
+                        labels: label,
                         datasets: [{
                             axis: 'y',
-                            label: 'Nilai',
+                            label: nama,
                             data: nilai,
                             fill: false,
                             backgroundColor: 'rgba(0, 0, 0, 1)',
@@ -162,15 +161,27 @@
                     },
                     options: {
                         indexAxis: 'y',
-                        maintainAspectRatio: false,
+                        maintainAspectRatio: true,
                         scales: {
                             x: {
                                 max: 4,
                                 min: 0,
                                 ticks: {
-                                    stepSize: 1
+                                    stepSize: 1,
+                                    color: 'rgba(0,0,0,1)',
                                 },
-                                position: 'top'
+                                position: 'top',
+                                grid: {
+                                    color: 'rgba(0,0,0,0.3)',
+                                },
+                            },
+                            y: {
+                                ticks: {
+                                    color: 'rgba(0,0,0,1)', 
+                                },
+                                grid: {
+                                    color: 'rgba(0,0,0,0.3)',
+                                },
                             }
                         },
                         plugins: {
@@ -184,11 +195,27 @@
                                     weight: 'bold'
                                 },
                                 padding: 6
+                            },
+                            subtitle: {
+                                display: true,
+                                text: 'Grafik Kompetensi Sarjana Psikologi',
+                                font: {
+                                    size: 24
+                                },
+                                color: 'rgba(0,0,0,1)',
+                            },
+                            legend: {
+                                labels: {
+                                    color: 'rgba(0, 0, 0, 1)',
+                                    font: {
+                                        size: 16
+                                    },
+                                },
                             }
                         },
 
                         // Core options
-                        aspectRatio: 5 / 3,
+                        aspectRatio: 4 / 2,
                         layout: {
                             padding: {
                                 top: 8,
@@ -213,22 +240,6 @@
                 //     myChart{{$i-1}}.resize(225,1000);
                 // });
             </script>     
-        <br> <br> <br>
-        <div class="grid grid-cols-2">
-            <div class="justify-self-end mr-6">
-                <div class="box-border h-[13rem] w-[10rem] p-4 border-2 border-slate-600 ml-36 justify-self-end text-center">
-                    <p class="mt-12">Foto</p>
-                    <p>3 X 4</p>
-                </div>
-            </div>
-            <div class="justify-self-start"> 
-                <p>Semarang, <?php echo tgl_indo(date('Y-m-d'))?></p>
-                <p>Dekan, </p>
-                <br> <br> <br> <br> <br>
-                <p>{{ $admin->nama }}</p>
-            </div>
-        </div>
-        <br><br>
         <div class="page-break"></div>
     @empty
         

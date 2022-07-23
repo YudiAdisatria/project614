@@ -16,6 +16,11 @@
         .page-break {
             page-break-after: always;
         }
+        @media print {
+            .print{
+                break-inside: avoid;
+            }
+        }
     </style>
     
     <!-- Scripts -->
@@ -79,14 +84,15 @@
         <!-- Kompetensi -->
         <div style="height: 100%;width: 790px; position: sticky;">
             <canvas class="p-2" id='myChart{{$i-1}}'></canvas>
-    </div>
+        </div>
         <div class="flex">
             <div class="">
                 <table class="border-collapse border border-slate-500"> 
                     <thead>
                         <tr>
-                            <th class="border border-slate-600 bg-slate-400 ">KOMPETENSI</th>
-                            <th class="border border-slate-600 bg-slate-400 ">DESKRIPSI</th>
+                            <th class="border border-slate-600 bg-slate-400 w-2/6">KOMPETENSI</th>
+                            <th class="border border-slate-600 bg-slate-400 w-3/6">DESKRIPSI</th>
+                            <th class="border border-slate-600 bg-slate-400 w-1/6">NILAI</th>
                         </tr>
                     </thead>
                     
@@ -94,8 +100,9 @@
                         <?php $j=0; $col = count($details['kompetensi']);?>
                         @forelse ($details['kompetensi'] as $detail)
                             <tr>
-                                <td class="tracking-tight text-sm border border-slate-700 p-2 w-1/6">{{ $detail->profil }}</td>
-                                <td class="tracking-tight text-sm border border-slate-700 p-2 text-justify w-5/6">{{ $detail->deskripsi }} </td>
+                                <td class="tracking-tight text-sm border border-slate-700 p-2 w-2/6">{{ $detail->profil }}</td>
+                                <td class="tracking-tight text-sm border border-slate-700 p-2 text-justify w-3/6">{{ $detail->deskripsi }} </td>
+                                <td class="tracking-tight text-sm border border-slate-700 p-2 text-center w-1/6">{{ $detail->presentase }} </td>
                             </tr> 
                             <?php $j++; ?>
                         @empty
@@ -106,7 +113,7 @@
             </div>
         </div>
         <br> <br> <br>
-        <div class="grid grid-cols-2">
+        <div class="print grid grid-cols-2">
             <div class="justify-self-end mr-6">
                 <div class="box-border h-[13rem] w-[10rem] p-4 border-2 border-slate-600 ml-36 justify-self-end text-center">
                     <p class="mt-12">Foto</p>
@@ -129,6 +136,7 @@
                 }
                 var nilai = @json($report[$i-1]['nilai']);
                 var label = @json($report[$i-1]['label']);
+                var nama = @json($report[$i-1]['mahasiswa']->nama);
                 var ctx{{$i-1}} = document.getElementById('myChart{{$i-1}}').getContext('2d');
                 var myChart{{$i-1}} = new Chart(ctx{{$i-1}}, {
                     type: 'line',
@@ -136,7 +144,7 @@
                         labels: label,
                         datasets: [{
                             axis: 'y',
-                            label: 'Nilai',
+                            label: nama,
                             data: nilai,
                             fill: false,
                             backgroundColor: 'rgba(0, 0, 0, 1)',
@@ -172,6 +180,19 @@
                                     weight: 'bold'
                                 },
                                 padding: 6
+                            },
+                            subtitle: {
+                                display: true,
+                                text: 'Grafik Kompetensi Sarjana Psikologi',
+                                font: {
+                                    size: 20
+                                }
+                            },
+                            legend: {
+                                font: {
+                                    size: 18
+                                },
+                                borderColor: 'rgba(0, 0, 0, 1)'
                             }
                         },
 
