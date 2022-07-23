@@ -9,7 +9,6 @@ use App\Models\Kurikulum;
 use App\Models\Mahasiswa;
 use App\Imports\NilaiImport;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\NilaiController;
@@ -265,18 +264,21 @@ class NilaiController extends Controller
                 ->get();
 
             $temp = [];
+            $lab = [];
 
             for($j = 0; $j < count($nilai); $j++){
                 array_push($temp, (float)$nilai[$j]->presentase);
+                array_push($lab, $nilai[$j]->profil);
             }
             $mahasiswa = Mahasiswa::where("nim", "=", $nim[$i])->get();
 
             $report[$i]['nilai'] = $temp;
+            $report[$i]['label'] = $lab;
             $report[$i]['kompetensi'] = clone $nilai;
             $report[$i]['mahasiswa'] = clone $mahasiswa[0];
         }
         $admin = User::whereIn("jabatan", ["dekan", "Dekan", "DEKAN"])->get();
-        // return $report[1]['kompetensi'][0];
+        // return count($report[1]['kompetensi']);
 
         /* $pdf = PDF::loadView('nilai.report', [
             'admin' => $admin[0],
