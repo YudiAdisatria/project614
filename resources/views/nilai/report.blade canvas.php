@@ -78,14 +78,14 @@
 
         <!-- Kompetensi -->
         <div class="flex">
-            <div class="w-2/5 mt-10">
+            <div class="mt-10">
                 <table class="border-collapse border border-slate-500"> 
                     <thead>
                         <tr>
-                            <th class="border border-slate-600 bg-slate-400 ">KOMPETENSI</th>
-                            <th class="border border-slate-600  bg-slate-400">KURANG KOMPETEN</th>
-                            <th class="border border-slate-600  bg-slate-400">GRAFIK</th>
-                            <th class="border border-slate-600  bg-slate-400">SANGAT KOMPETEN</th>
+                            <th class="border text-base border-slate-600  bg-slate-400 ">KOMPETENSI</th>
+                            <th class="border text-base border-slate-600  bg-slate-400">KURANG KOMPETEN</th>
+                            <th class="border text-base border-slate-600  bg-slate-400">GRAFIK</th>
+                            <th class="border text-base border-slate-600  bg-slate-400">SANGAT KOMPETEN</th>
                         </tr>
                     </thead>
                     
@@ -96,11 +96,17 @@
                                 <td class="tracking-tight text-sm text-justify border border-slate-700 p-2 h-32">{{ $detail->profil }}: <br>
                                     {{ $detail->deskripsi }} </td>
                                 <td  class="tracking-tight text-sm border border-slate-700 p-2 h-32">Kurang menguasai pengetahuan dan kurang terampil sebagai {{ $detail->profil }}</td>
-                                @if ($j == 0)
-                                <td  class="tracking-tight text-sm border border-slate-700 p-2 h-32" rowspan="{{$col}}"><canvas class="p-2" id='myChart{{$i-1}}' width="200" height="{{ $col * 200 }}px" style="border:1px solid #000000;"></canvas></td>
-                                @endif
+                                <td  class="tracking-tight text-sm border border-b-0 h-32"><canvas class="p-2" id='myChart{{$i-1}}{{$j}}' width="200px" height="200px" style="border:1px solid #000000;"></canvas></td>
                                 <td class="tracking-tight text-center border text-sm border-slate-700 p-2 h-32">Sangat menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
                             </tr> 
+                            <script>
+                                var c{{$j}} = document.getElementById("myChart{{$i-1}}{{$j}}");
+                                var ctx = c{{$j}}.getContext("2d");
+                                ctx.lineTo({{ $detail->presentase }}/4*200, 100);
+                                ctx.lineTo(0, 200);
+                                ctx.stroke();
+                                var sebelum = {{ $detail->presentase }};
+                            </script> 
                             <?php $j++; ?>
                         @empty
                         
@@ -108,15 +114,7 @@
                     </tbody>
                 </table>
             </div>  
-        </div>
-            <script>
-                var c = document.getElementById("myChart{{$i-1}}");
-                var ctx = c.getContext("2d");
-                ctx.moveTo(0, 0);
-                ctx.lineTo(200, 100);
-                ctx.lineTo(70, 200);
-                ctx.stroke();
-            </script>     
+        </div>    
         <br> <br> <br>
         <div class="grid grid-cols-2">
             <div class="justify-self-end mr-6">
