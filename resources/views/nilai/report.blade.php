@@ -16,6 +16,15 @@
         .page-break {
             page-break-after: always;
         }
+        canvas {
+            margin: 0;
+            padding: -5;
+        }
+        @media print {
+            .print{
+                break-inside: avoid;
+            }
+        }
     </style>
     
     <!-- Scripts -->
@@ -54,6 +63,9 @@
     ?>
     @forelse ($report as $details)
         <?php $i++;?>
+        <script>
+            var nilai = @json($report[$i-1]['nilai']);
+        </script>
 
         <div class="text-center">
         <h1 class="text-xl  font-bold">PROFIL KOMPETENSI SARJANA PSIKOLOGI</h1>
@@ -80,32 +92,39 @@
         <div class="flex">
             <div class="mt-10">
                 <table class="border-collapse border border-slate-500"> 
-                    <thead>
-                        <tr>
-                            <th class="border text-base border-slate-600  bg-slate-400 ">KOMPETENSI</th>
-                            <th class="border text-base border-slate-600  bg-slate-400">KURANG KOMPETEN</th>
-                            <th class="border text-base border-slate-600  bg-slate-400">GRAFIK</th>
-                            <th class="border text-base border-slate-600  bg-slate-400">SANGAT KOMPETEN</th>
-                        </tr>
-                    </thead>
-                    
                     <tbody>
+                        <tr>
+                            <th class="border text-sm border-slate-600  bg-slate-400 ">KOMPETENSI</th>
+                            <th class="border text-sm border-slate-600  bg-slate-400">KURANG KOMPETEN</th>
+                            <th class="border text-sm border-slate-600  bg-slate-400">GRAFIK</th>
+                            <th class="border text-sm border-slate-600  bg-slate-400">SANGAT KOMPETEN</th>
+                        </tr>
+
+                    
+
                         <?php $j=0; $col = count($details['kompetensi']);?>
                         @forelse ($details['kompetensi'] as $detail)
-                            <tr>
-                                <td class="tracking-tight text-sm text-justify border border-slate-700 p-2 h-32">{{ $detail->profil }}: <br>
+                            <tr class="print">
+                                <td class="tracking-tight text-xs text-justify border border-slate-700 p-2 h-36"><p class="print tracking-tight text-xs text-justify font-bold">{{ $detail->profil }}</p><br>
                                     {{ $detail->deskripsi }} </td>
-                                <td  class="tracking-tight text-sm border border-slate-700 p-2 h-32">Kurang menguasai pengetahuan dan kurang terampil sebagai {{ $detail->profil }}</td>
-                                <td  class="tracking-tight text-sm border border-b-0 h-32"><canvas class="p-2" id='myChart{{$i-1}}{{$j}}' width="200px" height="200px" style="border:1px solid #000000;"></canvas></td>
-                                <td class="tracking-tight text-center border text-sm border-slate-700 p-2 h-32">Sangat menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
+                                <td class="tracking-tight text-justify text-xs border border-slate-700 p-2 h-36">Kurang menguasai pengetahuan dan kurang terampil sebagai {{ $detail->profil }}</td>
+                                <td class="tracking-tight text-xs border border-slate-700 h-36"><canvas class="h-full" id='myChart{{$i-1}}{{$j}}' width="200px" ></canvas></td> <!-- style="border:1px solid #000000;" -->
+                                <td class="tracking-tight text-justify border text-xs border-slate-700 p-2 h-36">Sangat menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
                             </tr> 
                             <script>
                                 var c{{$j}} = document.getElementById("myChart{{$i-1}}{{$j}}");
                                 var ctx = c{{$j}}.getContext("2d");
-                                ctx.lineTo({{ $detail->presentase }}/4*200, 100);
-                                ctx.lineTo(0, 200);
+                                if ({{ $j }} == 0) {
+
+                                }else{
+                                    ctx.lineTo(nilai[{{ $j }}-1]/4*200, -72);
+                                }
+                                ctx.lineTo({{ $detail->presentase }}/4*200, 72);
+                                ctx.font = "12px Arial";
+                                ctx.fillText({{ $detail->presentase }}, {{ $detail->presentase }}/4*200+5, 72);
+                                ctx.fillRect({{ $detail->presentase }}/4*200-1, 72,3,3);
+                                ctx.lineTo(nilai[{{ $j }}+1]/4*200, 216);
                                 ctx.stroke();
-                                var sebelum = {{ $detail->presentase }};
                             </script> 
                             <?php $j++; ?>
                         @empty
@@ -116,17 +135,17 @@
             </div>  
         </div>    
         <br> <br> <br>
-        <div class="grid grid-cols-2">
+        <div class="print grid grid-cols-2">
             <div class="justify-self-end mr-6">
-                <div class="box-border h-[13rem] w-[10rem] p-4 border-2 border-slate-600 ml-36 justify-self-end text-center">
-                    <p class="mt-12">Foto</p>
+                <div class="box-border h-[9.3rem] w-[7rem] p-4 border-2 border-slate-600 ml-36 justify-self-end text-center">
+                    <p class="mt-8">Foto</p>
                     <p>3 X 4</p>
                 </div>
             </div>
             <div class="justify-self-start"> 
                 <p>Semarang, <?php echo tgl_indo(date('Y-m-d'))?></p>
                 <p>Dekan, </p>
-                <br> <br> <br> <br> <br>
+                <br> <br> <br>
                 <p>{{ $admin->nama }}</p>
             </div>
         </div>
