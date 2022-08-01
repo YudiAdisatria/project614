@@ -31,8 +31,8 @@
     
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
-    <script src="{{ mix('chart.js/chart.js') }}"></script>
-    <script src="{{ mix('chart.js/chartjs-plugin-datalabels.js') }}"></script>
+    <!-- <script src="{{ mix('chart.js/chart.js') }}"></script>
+    <script src="{{ mix('chart.js/chartjs-plugin-datalabels.js') }}"></script> -->
 </head>
 <body>
     <?php
@@ -70,68 +70,80 @@
         </script>
 
         <div class="text-center">
-            <h1 class="text-lg  font-bold">PROFIL KOMPETENSI SARJANA PSIKOLOGI</h1>
-            <h3 class="font-semibold">FAKULTAS PSIKOLOGI UNIVERSITAS KATOLIK SOEGIJAPRANATA</h3>
+            <h1 class="text-xxl font-bold">PROFIL KOMPETENSI SARJANA PSIKOLOGI</h1>
+            <h3 class="text-xl font-semibold">FAKULTAS PSIKOLOGI UNIVERSITAS KATOLIK SOEGIJAPRANATA</h3>
         </div>
         
         <!-- Data Diri -->
         <div class="flex mt-2">
             <div class="flex-1">
-                <p class="text-sm">NAMA MAHASISWA&emsp;: {{ $details['mahasiswa']->nama }}</p>
-                <p class="text-sm">NIM&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{ $details['mahasiswa']->nim }}</p>
-                <p class="text-sm">TEMPAT LAHIR&emsp;&emsp;&emsp;&nbsp;&nbsp;: {{ explode(',', $details['mahasiswa']->ttl)[0] }}</p>
-                <p class="text-sm">TANGGAL LAHIR&emsp;&emsp;&ensp;&nbsp;: {{ substr($details['mahasiswa']->ttl, -10, 10) }}</p>
+                <p class="text-lg">NAMA MAHASISWA&emsp;: {{ $details['mahasiswa']->nama }}</p>
+                <p class="text-lg">NIM&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{ $details['mahasiswa']->nim }}</p>
+                <p class="text-lg">TEMPAT LAHIR&emsp;&emsp;&emsp;&nbsp;&nbsp;: {{ explode(',', $details['mahasiswa']->ttl)[0] }}</p>
+                <p class="text-lg">TANGGAL LAHIR&emsp;&emsp;&ensp;&nbsp;: {{ substr($details['mahasiswa']->ttl, -10, 10) }}</p>
             </div>
             <div>
-                <p class="text-sm">NIRL&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;: {{ $details['mahasiswa']->nirl }}</p>
-                <p class="text-sm">TAHUN MASUK&emsp;&ensp;&nbsp;: {{ $details['mahasiswa']->tahun_masuk }}</p>
-                <p class="text-sm">TANGGAL LULUS&emsp;&nbsp;: {{ $details['mahasiswa']->tanggal_lulus }}</p>
-                <p class="text-sm">KURIKULUM&emsp;&emsp;&emsp;&nbsp;: {{ $kurikulum }}</p>
+                <p class="text-lg">NIRL&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;: {{ $details['mahasiswa']->nirl }}</p>
+                <p class="text-lg">TAHUN MASUK&emsp;&ensp;&nbsp;: {{ $details['mahasiswa']->tahun_masuk }}</p>
+                <p class="text-lg">TANGGAL LULUS&emsp;&nbsp;: {{ $details['mahasiswa']->tanggal_lulus }}</p>
+                <p class="text-lg">KURIKULUM&emsp;&emsp;&emsp;&nbsp;: {{ $kurikulum }}</p>
             </div>
         </div>
 
         <!-- Kompetensi -->
         <div class="flex">
             <div class="mt-2">
-                <table class="border-collapse border border-slate-500"> 
+                <table class="border-collapse border border-slate-500" id="table-grafik" style="width: 1050px;"> 
                     <tbody>
                         <tr>
-                            <th class="border tulisan border-slate-600 w-5/12 bg-slate-400">KOMPETENSI</th>
-                            <th class="border tulisan border-slate-600 w-2/12 bg-slate-400">KURANG KOMPETEN</th>
-                            <th class="border tulisan border-slate-600 w-3/12 bg-slate-400">GRAFIK</th>
-                            <th class="border tulisan border-slate-600 w-2/12 bg-slate-400">SANGAT KOMPETEN</th>
+                            <th class="border text-sm border-slate-600 w-5/12 bg-slate-400">KOMPETENSI</th>
+                            <th class="border text-sm border-slate-600 w-2/12 bg-slate-400">KURANG KOMPETEN</th>
+                            <th class="border text-sm border-slate-600 w-3/12 bg-slate-400">GRAFIK</th>
+                            <th class="border text-sm border-slate-600 w-2/12 bg-slate-400">SANGAT KOMPETEN</th>
                         </tr>
 
-                    
-
-                        <?php $j=0; $col = count($details['kompetensi']);?>
+                        <?php $j=0; $col = count($details['kompetensi']); $panjang=0; $pan=0;?>           
                         @forelse ($details['kompetensi'] as $detail)
                             <tr class="print">
-                                <td style="height: 6rem; font-size: 0.65rem;" class="tracking-tight tulisan text-justify border border-slate-700 p-1"><p class="print tracking-tight font-bold">{{ $detail->profil }}</p>
+                                <td style="font-size: 0.7;" class="tracking-tight text-justify border border-slate-700 p-0.5"><p class="print tracking-tight font-bold">{{ $detail->profil }}</p>
                                     {{ $detail->deskripsi }} </td>
-                                <td style="height: 6rem; font-size: 0.65rem;" class="tracking-tight text-justify tulisan border border-slate-700 p-1">Kurang menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
-                                <td style="height: 6rem; font-size: 0.65rem;" class="tracking-tight tulisan border border-slate-700"><canvas class="h-full" id='myChart{{$i-1}}{{$j}}' width="315px" ></canvas></td> <!-- style="border:1px solid #000000;" -->
-                                <td style="height: 6rem; font-size: 0.65rem;" class="tracking-tight text-justify border tulisan border-slate-700 p-1">Sangat menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
+                                <td style="font-size: 0.7;" class="tracking-tight text-center border border-slate-700 p-0.5">Kurang menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
+                                <script>
+                                    var tbl = document.getElementById('table-grafik').rows[{{ $j }}+1].offsetHeight;
+
+                                </script>
+                                <?php 
+                                    $panjang = "<script>document.write(tbl)</script>";
+                                ?>
+                                
+                                <td style="font-size: 0.7;" class="tracking-tight border border-slate-700"><canvas id='myChart{{$i-1}}{{$j}}' width="315px" height="102px"></canvas></td> <!-- style="border:1px solid #000000;" -->
+                                <td style="font-size: 0.7;" class="tracking-tight text-center border border-slate-700 p-0.5">Sangat menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
                             </tr> 
                             <script>
                                 var c{{$j}} = document.getElementById("myChart{{$i-1}}{{$j}}");
                                 var ctx = c{{$j}}.getContext("2d");
-                                var height = 180/2; //h-24 = 96px :2
+                                var height = 53; //h-24 = 96px :2
                                 var width = 315-20;
+
+                                // Start Point
                                 if ({{ $j }} == 0) {
 
                                 }else{
+                                    // If there is before
                                     ctx.lineTo(nilai[{{ $j }}-1]/4*width, -height);
                                 }
+                                // Point of value
                                 ctx.lineTo({{ $detail->presentase }}/4*width, height);
-                                ctx.font = "12px Arial";
+                                ctx.font = "bold 12px Arial";
                                 
+                                // Text di kanan atau kiri
                                 if({{ $detail->presentase }} > 3.55){
                                     ctx.fillText({{ $detail->presentase }}, {{ $detail->presentase }}/4*width-30, height);
                                 }else{
-                                    ctx.fillText({{ $detail->presentase }}, {{ $detail->presentase }}/4*width+5, height);
+                                    ctx.fillText({{ $detail->presentase }}, {{ $detail->presentase }}/4*width+6, height+5);
                                 }
-                                ctx.fillRect({{ $detail->presentase }}/4*width-1, height,3,3);
+                                ctx.fillRect({{ $detail->presentase }}/4*width-1, height-2,3,3);
+                                // Next point
                                 ctx.lineTo(nilai[{{ $j }}+1]/4*width, height*3);
                                 ctx.stroke();
                             </script> 
@@ -145,13 +157,13 @@
         </div>    
         <br>
         <div class="print grid grid-cols-2">
-            <div class="justify-self-end mr-6">
+            <div class="justify-self-end mr-6 mt-3">
                 <div class="box-border h-[9.3rem] w-[7rem] p-4 border-2 border-slate-600 ml-36 justify-self-end text-center">
-                    <p class="mt-3 text-sm">Foto</p>
+                    <p class="mt-3 text-base">Foto</p>
                     <p>3 X 4</p>
                 </div>
             </div>
-            <div class="justify-self-start text-sm"> 
+            <div class="justify-self-start text-base"> 
                 <p>Semarang, <?php echo tgl_indo(date('Y-m-d'))?></p>
                 <p>Dekan, </p>
                 <br> <br> <br> <br>

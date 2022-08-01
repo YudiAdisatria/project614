@@ -50,7 +50,7 @@ class KompetensiController extends Controller
     {
         $data = $request->all();
         
-        Komptensi::create($data);
+        Kompetensi::create($data);
 
         return redirect()->route('kompetensi.index');
     }
