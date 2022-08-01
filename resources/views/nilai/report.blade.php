@@ -34,7 +34,7 @@
     <!-- <script src="{{ mix('chart.js/chart.js') }}"></script>
     <script src="{{ mix('chart.js/chartjs-plugin-datalabels.js') }}"></script> -->
 </head>
-<body>
+<body style="width: 1050px;">
     <?php
         $i  = 0;
     ?>
@@ -70,30 +70,30 @@
         </script>
 
         <div class="text-center">
-            <h1 class="text-xxl font-bold">PROFIL KOMPETENSI SARJANA PSIKOLOGI</h1>
-            <h3 class="text-xl font-semibold">FAKULTAS PSIKOLOGI UNIVERSITAS KATOLIK SOEGIJAPRANATA</h3>
+            <h1 class="text-xl font-bold">PROFIL KOMPETENSI SARJANA PSIKOLOGI</h1>
+            <h3 class="text-lg font-semibold">FAKULTAS PSIKOLOGI UNIVERSITAS KATOLIK SOEGIJAPRANATA</h3>
         </div>
         
         <!-- Data Diri -->
         <div class="flex mt-2">
             <div class="flex-1">
-                <p class="text-lg">NAMA MAHASISWA&emsp;: {{ $details['mahasiswa']->nama }}</p>
-                <p class="text-lg">NIM&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{ $details['mahasiswa']->nim }}</p>
-                <p class="text-lg">TEMPAT LAHIR&emsp;&emsp;&emsp;&nbsp;&nbsp;: {{ explode(',', $details['mahasiswa']->ttl)[0] }}</p>
-                <p class="text-lg">TANGGAL LAHIR&emsp;&emsp;&ensp;&nbsp;: {{ substr($details['mahasiswa']->ttl, -10, 10) }}</p>
+                <p class="text-base">NAMA MAHASISWA&emsp;: {{ $details['mahasiswa']->nama }}</p>
+                <p class="text-base">NIM&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{ $details['mahasiswa']->nim }}</p>
+                <p class="text-base">TEMPAT LAHIR&emsp;&emsp;&emsp;&nbsp;&nbsp;: {{ explode(',', $details['mahasiswa']->ttl)[0] }}</p>
+                <p class="text-base">TANGGAL LAHIR&emsp;&emsp;&ensp;&nbsp;: {{ date("d-m-Y", strtotime(substr($details['mahasiswa']->ttl, -10, 10))) }}</p>
             </div>
             <div>
-                <p class="text-lg">NIRL&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;: {{ $details['mahasiswa']->nirl }}</p>
-                <p class="text-lg">TAHUN MASUK&emsp;&ensp;&nbsp;: {{ $details['mahasiswa']->tahun_masuk }}</p>
-                <p class="text-lg">TANGGAL LULUS&emsp;&nbsp;: {{ $details['mahasiswa']->tanggal_lulus }}</p>
-                <p class="text-lg">KURIKULUM&emsp;&emsp;&emsp;&nbsp;: {{ $kurikulum }}</p>
+                <p class="text-base">NIRL&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;: {{ $details['mahasiswa']->nirl }}</p>
+                <p class="text-base">TAHUN MASUK&emsp;&ensp;&nbsp;: {{ $details['mahasiswa']->tahun_masuk }}</p>
+                <p class="text-base">TANGGAL LULUS&emsp;&nbsp;: {{ date("d-m-Y", strtotime($details['mahasiswa']->tanggal_lulus)) }}</p>
+                <p class="text-base">KURIKULUM&emsp;&emsp;&emsp;&nbsp;: {{ $kurikulum }}</p>
             </div>
         </div>
 
         <!-- Kompetensi -->
         <div class="flex">
             <div class="mt-2">
-                <table class="border-collapse border border-slate-500" id="table-grafik" style="width: 1050px;"> 
+                <table class="border-collapse border border-slate-500"> 
                     <tbody>
                         <tr>
                             <th class="border text-sm border-slate-600 w-5/12 bg-slate-400">KOMPETENSI</th>
@@ -105,19 +105,11 @@
                         <?php $j=0; $col = count($details['kompetensi']); $panjang=0; $pan=0;?>           
                         @forelse ($details['kompetensi'] as $detail)
                             <tr class="print">
-                                <td style="font-size: 0.7;" class="tracking-tight text-justify border border-slate-700 p-0.5"><p class="print tracking-tight font-bold">{{ $detail->profil }}</p>
+                                <td style="font-size: 0.7rem;" class="tracking-tight text-justify border border-slate-700 p-0.5"><p class="print tracking-tight font-bold">{{ $detail->profil }}</p>
                                     {{ $detail->deskripsi }} </td>
-                                <td style="font-size: 0.7;" class="tracking-tight text-center border border-slate-700 p-0.5">Kurang menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
-                                <script>
-                                    var tbl = document.getElementById('table-grafik').rows[{{ $j }}+1].offsetHeight;
-
-                                </script>
-                                <?php 
-                                    $panjang = "<script>document.write(tbl)</script>";
-                                ?>
-                                
-                                <td style="font-size: 0.7;" class="tracking-tight border border-slate-700"><canvas id='myChart{{$i-1}}{{$j}}' width="315px" height="102px"></canvas></td> <!-- style="border:1px solid #000000;" -->
-                                <td style="font-size: 0.7;" class="tracking-tight text-center border border-slate-700 p-0.5">Sangat menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
+                                <td style="font-size: 0.7rem;" class="tracking-tight text-center border border-slate-700 p-0.5">Kurang menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>                               
+                                <td style="font-size: 0.7rem;" class="tracking-tight border border-slate-700"><canvas id='myChart{{$i-1}}{{$j}}' width="315px" height="102px"></canvas></td> <!-- style="border:1px solid #000000;" -->
+                                <td style="font-size: 0.7rem;" class="tracking-tight text-center border border-slate-700 p-0.5">Sangat menguasai pengetahuan dan terampil sebagai {{ $detail->profil }}</td>
                             </tr> 
                             <script>
                                 var c{{$j}} = document.getElementById("myChart{{$i-1}}{{$j}}");
@@ -158,7 +150,7 @@
         <br>
         <div class="print grid grid-cols-2">
             <div class="justify-self-end mr-6 mt-3">
-                <div class="box-border h-[9.3rem] w-[7rem] p-4 border-2 border-slate-600 ml-36 justify-self-end text-center">
+                <div class="box-border p-4 border-2 border-slate-600 ml-36 justify-self-end text-center" style="width: 7rem; height: 9.3rem;">
                     <p class="mt-3 text-base">Foto</p>
                     <p>3 X 4</p>
                 </div>

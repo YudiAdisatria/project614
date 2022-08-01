@@ -1275,9 +1275,6 @@ select {
 .h-24 {
   height: 6rem;
 }
-.h-\[9\.3rem\] {
-  height: 9.3rem;
-}
 .h-56 {
   height: 14rem;
 }
@@ -1337,9 +1334,6 @@ select {
 }
 .w-3\/12 {
   width: 25%;
-}
-.w-\[7rem\] {
-  width: 7rem;
 }
 .min-w-0 {
   min-width: 0px;
