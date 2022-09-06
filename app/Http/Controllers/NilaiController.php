@@ -28,7 +28,7 @@ class NilaiController extends Controller
             $nilai = DB::table('mahasiswas')
                 ->rightJoin('nilais', 'mahasiswas.nim', '=', 'nilais.nim')
                 ->join('matkuls', 'nilais.kode_matkul', '=', 'matkuls.kode_matkul')
-                ->select('mahasiswas.id','mahasiswas.nama','mahasiswas.nim', DB::raw('sum(nilais.nilai*matkuls.sks)/sum(matkuls.sks) AS ipk'))
+                ->select('mahasiswas.nama','mahasiswas.nim', DB::raw('sum(nilais.nilai*matkuls.sks)/sum(matkuls.sks) AS ipk'))
                 ->groupBy('mahasiswas.nama','mahasiswas.nim')
                 ->where('mahasiswas.nim', 'like', '%'. request('search') . '%')
                 ->orWhere('mahasiswas.nama', 'like', '%'. request('search') . '%')
