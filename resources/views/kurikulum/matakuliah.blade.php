@@ -48,7 +48,7 @@
 
                     <div class="flex flex-wrap mt-10">
                         @forelse ($matkul as $mat)
-                            <div class="w-full  self-center mt-2 px-3 lg:w-1/5">
+                            <div class="w-full  self-center mt-2 px-3 lg:w-1/6">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                     Kode Mata Kuliah
                                 </label>
@@ -56,28 +56,28 @@
                                 <input value="{{ old('kode_matkul') ?? $mat->kode_matkul }}" name="kode_matkul[]" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="hidden" placeholder="Kode Mata Kuliah">
                             </div>
                         
-                            <div class="w-full  self-center mt-2 px-3 lg:w-2/5">
+                            <div class="w-full  self-center mt-2 px-3 lg:w-2/6">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                     Nama Mata Kuliah
                                 </label>
                                 <input value="{{ old('nama_matkul') ?? $mat->nama_matkul }}" name="nama_matkul[]" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Nama Mata Kuliah">
                             </div>
 
-                            <div class="w-full  self-center mt-2 px-3 lg:w-1/5">
+                            <div class="w-full  self-center mt-2 px-3 lg:w-1/6">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                         SKS
                                 </label>
                                 <input value="{{ old('sks') ?? $mat->sks }}" name="sks[]" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="numeric" placeholder="SKS">
                             </div>
 
-                            <div class="w-full  self-center mt-2 px-3 lg:w-1/5">
+                            <div class="w-full  self-center mt-2 px-3 lg:w-2/6">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                                     Kompetensi
                                 </label>
                                 <select name="id_kompetensi[]" class="appearance-none block w-full bg-white text-gray-700 border border-gray-100 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name">
-                                    <option value="{{ $mat->kompetensi->id }}">{{ $mat->kompetensi->profil }}</option>
+                                    <option value="{{ $mat->kompetensi->id }}">{{ $mat->kompetensi->id }} - {{ $mat->kompetensi->profil }}</option>
                                     @forelse ( $kompetensi as $komp)
-                                        <option value="{{ $komp->id }}">{{ $komp->profil }}</option>
+                                        <option value="{{ $komp->id }}">{{ $komp->id }} - {{ $komp->profil }}</option>
                                     @empty
                                         
                                     @endforelse    

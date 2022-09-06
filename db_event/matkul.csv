@@ -1,94 +1,94 @@
-"kode_matkul","nama_matkul","sks","id_kompetensi","kode_kurikulum"
-"PSM104","Teori Belajar ",2,1,2022
-"PSM106","Psikologi Pendidikan ",3,1,2022
-"PSM201","Teori Kepribadian ",3,1,2022
-"PSM202","Psikologi Abnormal ",3,1,2022
-"PSM204","Etika Psikologi ",2,1,2022
-"PSM206","Modifikasi Perilaku: Teori dan Praktik ",3,1,2022
-"PSM301","Psikologi Klinis Dasar ",2,1,2022
-"PSM302","Metode Pengumpulan Data Kualitatif ",3,1,2022
-"PSM305","Psikologi Anak Berkebutuhan Khusus ",4,1,2022
-"PSM308","Psikologi Kesehatan Seksual ",4,1,2022
-"PSM401","Assesmen ",2,1,2022
-"PSM409","Deteksi Dini Gangguan Psikologis ",4,1,2022
-"PSM501","Dasar Konseling ",4,1,2022
-"PSM502","Teknik Pengembangan Pribadi ",4,1,2022
-"PSM503","Intervensi Trauma ",3,1,2022
-"PSM504","Psikologi Orang Sakit: Teori dan Praktik ",3,1,2022
-"PSM108","Statistik ",3,2,2022
-"PSM204","Etika Psikologi ",2,2,2022
-"PSM202","Psikologi Abnormal ",3,2,2022
-"PSM205","Psi Organisasi ",2,2,2022
-"PSM206","Modifikasi Perilaku: Teori dan Praktik ",3,2,2022
-"PSM301","Psikologi Klinis Dasar ",2,2,2022
-"PSM302","Metode Pengumpulan Data Kualitatif ",3,2,2022
-"PSM303","Tes Inteligensi, Minat dan  Bakat ",3,2,2022
-"PSM304","Tes Kepribadian",3,2,2022
-"PSM305","Psikologi Anak Berkebutuhan Khusus ",4,2,2022
-"PSM401","Assesmen ",2,2,2022
-"PSM404","Metodologi Penelitian Kuantitatif ",3,2,2022
-"PSM409","Deteksi Dini Gangguan Psikologis ",4,2,2022
-"PSM501","Dasar Konseling ",4,2,2022
-"PSM102","Perkembangan Manusia ",3,3,2022
-"PSM104","Teori Belajar ",2,3,2022
-"PSM106","Psikologi Pendidikan ",3,3,2022
-"PSM201","Teori Kepribadian ",3,3,2022
-"PSM202","Psikologi Abnormal ",3,3,2022
-"PSM206","Modifikasi Perilaku: Teori dan Praktik ",3,3,2022
-"PSM302","Metode Pengumpulan Data Kualitatif ",3,3,2022
-"PSM305","Psikologi Anak Berkebutuhan Khusus ",4,3,2022
-"PSM407","Evaluasi Pembelajaran ",3,3,2022
-"PSM409","Deteksi Dini Gangguan Psikologis ",4,3,2022
-"PSM501","Dasar Konseling ",4,3,2022
-"PSM108","Statistik ",3,4,2022
-"UKS104","Bahasa Indonesia",2,4,2022
-"PSM204","Etika Psikologi ",2,4,2022
-"PSM207","Metode Pengumpulan Data Kuantitatif ",3,4,2022
-"PSM302","Metode Pengumpulan Data Kualitatif ",3,4,2022
-"PSM404","Metodologi Penelitian Kuantitatif ",3,4,2022
-"PSM408","Metodologi Penelitian Kualitatif ",2,4,2022
-"PSM104","Teori Belajar",2,5,2022
-"PSM108","Statistik ",3,5,2022
-"PSM204","Etika Psikologi ",2,5,2022
-"PSM206","Modifikasi Perilaku: Teori dan Praktik ",3,5,2022
-"PSM207","Metode Pengumpulan Data Kuantitatif ",3,5,2022
-"PSM302","Metode Pengumpulan Data Kualitatif ",3,5,2022
-"PSM307","Dinamika Kelompok",3,5,2022
-"PSM404","Metodologi Penelitian Kuantitatif ",3,5,2022
-"PSM407","Evaluasi Pembelajaran ",3,5,2022
-"PSM408","Metodologi Penelitian Kualitatif ",2,5,2022
-"PSM502","Teknik Pengembangan Pribadi ",4,5,2022
-"PSM506","Rancangan Pelatihan ",4,5,2022
-"PSM202","Psikologi Abnormal",3,6,2022
-"PSM204","Etika Psikologi ",2,6,2022
-"PSM205","Psi Organisasi ",2,6,2022
-"PSM206","Modifikasi Perilaku: Teori dan Praktik",3,6,2022
-"PSM207","Metode Pengumpulan Data Kuantitatif ",3,6,2022
-"PSM302","Metode Pengumpulan Data Kualitatif ",3,6,2022
-"PSM304","Tes Kepribadian ",3,6,2022
-"PSM306","Psikologi SDM",2,6,2022
-"PSM307","Dinamika Kelompok ",3,6,2022
-"PSM406","Human Capital",3,6,2022
-"PSM501","Dasar Konseling ",4,6,2022
-"PSM506","Rancangan Pelatihan ",4,6,2022
-"PSM103","Psikologi Sosial ",3,7,2022
-"PSM105","Psikologi Kesehatan",2,7,2022
-"PSM206","Modifikasi Perilaku: Teori dan Praktik",3,7,2022
-"PSM207","Metode Pengumpulan Data Kuantitatif ",3,7,2022
-"PSM302","Metode Pengumpulan Data Kualitatif ",3,7,2022
-"PSM307","Dinamika Kelompok ",3,7,2022
-"PSM405","Resolusi dan Transformasi Konflik ",3,7,2022
-"PSM503","Intervensi Trauma ",3,7,2022
-"PSM505","Pemberdayaan Masyarakat: Teori dan Praktik ",4,7,2022
-"PSM108","Statistik ",3,8,2022
-"PSM205","Psi Organisasi ",2,8,2022
-"PSM206","Modifikasi Perilaku: Teori dan Praktik ",3,8,2022
-"PSM207","Metode Pengumpulan Data Kuantitatif ",3,8,2022
-"PSM302","Metode Pengumpulan Data Kualitatif ",3,8,2022
-"PSM306","Psikologi SDM ",2,8,2022
-"PSM307","Dinamika Kelompok",3,8,2022
-"PSM402","Psychopreneurship ",2,8,2022
-"PSM404","Metodologi Penelitian Kuantitatif ",3,8,2022
-"PSM406","Human Capital ",3,8,2022
-"PSM408","Metodologi Penelitian Kualitatif ",2,8,2022
-"PSM502","Teknik Pengembangan Pribadi ",4,8,2022
+kode_matkul,nama_matkul,sks,id_kompetensi,kode_kurikulum
+PSM104,Teori Belajar ,2,1,2022
+PSM106,Psikologi Pendidikan ,3,1,2022
+PSM201,Teori Kepribadian ,3,1,2022
+PSM202,Psikologi Abnormal ,3,1,2022
+PSM204,Etika Psikologi ,2,1,2022
+PSM206,Modifikasi Perilaku: Teori dan Praktik ,3,1,2022
+PSM301,Psikologi Klinis Dasar ,2,1,2022
+PSM302,Metode Pengumpulan Data Kualitatif ,3,1,2022
+PSM305,Psikologi Anak Berkebutuhan Khusus ,4,1,2022
+PSM308,Psikologi Kesehatan Seksual ,4,1,2022
+PSM401,Assesmen ,2,1,2022
+PSM409,Deteksi Dini Gangguan Psikologis ,4,1,2022
+PSM501,Dasar Konseling ,4,1,2022
+PSM502,Teknik Pengembangan Pribadi ,4,1,2022
+PSM503,Intervensi Trauma ,3,1,2022
+PSM504,Psikologi Orang Sakit: Teori dan Praktik ,3,1,2022
+PSM108,Statistik ,3,2,2022
+PSM204,Etika Psikologi ,2,2,2022
+PSM202,Psikologi Abnormal ,3,2,2022
+PSM205,Psikologi Organisasi ,2,2,2022
+PSM206,Modifikasi Perilaku: Teori dan Praktik ,3,2,2022
+PSM301,Psikologi Klinis Dasar ,2,2,2022
+PSM302,Metode Pengumpulan Data Kualitatif ,3,2,2022
+PSM303,"Tes Inteligensi, Minat dan  Bakat ",3,2,2022
+PSM304,Tes Kepribadian,3,2,2022
+PSM305,Psikologi Anak Berkebutuhan Khusus ,4,2,2022
+PSM401,Assesmen ,2,2,2022
+PSM404,Metodologi Penelitian Kuantitatif ,3,2,2022
+PSM409,Deteksi Dini Gangguan Psikologis ,4,2,2022
+PSM501,Dasar Konseling ,4,2,2022
+PSM102,Perkembangan Manusia ,3,3,2022
+PSM104,Teori Belajar ,2,3,2022
+PSM106,Psikologi Pendidikan ,3,3,2022
+PSM201,Teori Kepribadian ,3,3,2022
+PSM202,Psikologi Abnormal ,3,3,2022
+PSM206,Modifikasi Perilaku: Teori dan Praktik ,3,3,2022
+PSM302,Metode Pengumpulan Data Kualitatif ,3,3,2022
+PSM305,Psikologi Anak Berkebutuhan Khusus ,4,3,2022
+PSM407,Evaluasi Pembelajaran ,3,3,2022
+PSM409,Deteksi Dini Gangguan Psikologis ,4,3,2022
+PSM501,Dasar Konseling ,4,3,2022
+PSM108,Statistik ,3,4,2022
+UKS104,Bahasa Indonesia,2,4,2022
+PSM204,Etika Psikologi ,2,4,2022
+PSM207,Metode Pengumpulan Data Kuantitatif ,3,4,2022
+PSM302,Metode Pengumpulan Data Kualitatif ,3,4,2022
+PSM404,Metodologi Penelitian Kuantitatif ,3,4,2022
+PSM408,Metodologi Penelitian Kualitatif ,2,4,2022
+PSM104,Teori Belajar,2,5,2022
+PSM108,Statistik ,3,5,2022
+PSM204,Etika Psikologi ,2,5,2022
+PSM206,Modifikasi Perilaku: Teori dan Praktik ,3,5,2022
+PSM207,Metode Pengumpulan Data Kuantitatif ,3,5,2022
+PSM302,Metode Pengumpulan Data Kualitatif ,3,5,2022
+PSM307,Dinamika Kelompok,3,5,2022
+PSM404,Metodologi Penelitian Kuantitatif ,3,5,2022
+PSM407,Evaluasi Pembelajaran ,3,5,2022
+PSM408,Metodologi Penelitian Kualitatif ,2,5,2022
+PSM502,Teknik Pengembangan Pribadi ,4,5,2022
+PSM506,Rancangan Pelatihan ,4,5,2022
+PSM202,Psikologi Abnormal,3,6,2022
+PSM204,Etika Psikologi ,2,6,2022
+PSM205,Psikologi Organisasi ,2,6,2022
+PSM206,Modifikasi Perilaku: Teori dan Praktik,3,6,2022
+PSM207,Metode Pengumpulan Data Kuantitatif ,3,6,2022
+PSM302,Metode Pengumpulan Data Kualitatif ,3,6,2022
+PSM304,Tes Kepribadian ,3,6,2022
+PSM306,Psikologi Sumber Daya Manusia,2,6,2022
+PSM307,Dinamika Kelompok ,3,6,2022
+PSM406,Human Capital,3,6,2022
+PSM501,Dasar Konseling ,4,6,2022
+PSM506,Rancangan Pelatihan ,4,6,2022
+PSM103,Psikologi Sosial ,3,7,2022
+PSM105,Psikologi Kesehatan,2,7,2022
+PSM206,Modifikasi Perilaku: Teori dan Praktik,3,7,2022
+PSM207,Metode Pengumpulan Data Kuantitatif ,3,7,2022
+PSM302,Metode Pengumpulan Data Kualitatif ,3,7,2022
+PSM307,Dinamika Kelompok ,3,7,2022
+PSM405,Resolusi dan Transformasi Konflik ,3,7,2022
+PSM503,Intervensi Trauma ,3,7,2022
+PSM505,Pemberdayaan Masyarakat: Teori dan Praktik ,4,7,2022
+PSM108,Statistik ,3,8,2022
+PSM205,Psikologi Organisasi ,2,8,2022
+PSM206,Modifikasi Perilaku: Teori dan Praktik ,3,8,2022
+PSM207,Metode Pengumpulan Data Kuantitatif ,3,8,2022
+PSM302,Metode Pengumpulan Data Kualitatif ,3,8,2022
+PSM306,Psikologi Sumber Daya Manusia ,2,8,2022
+PSM307,Dinamika Kelompok,3,8,2022
+PSM402,Psychopreneurship ,2,8,2022
+PSM404,Metodologi Penelitian Kuantitatif ,3,8,2022
+PSM406,Human Capital ,3,8,2022
+PSM408,Metodologi Penelitian Kualitatif ,2,8,2022
+PSM502,Teknik Pengembangan Pribadi ,4,8,2022
